@@ -1,0 +1,20 @@
+{
+  "name": "danwiththehat-skills",
+  "owner": {
+    "name": "Hong-Dan Nguyen"
+  },
+  "plugins": [
+    {
+      "name": "data-analytics",
+      "source": "./plugins/data-analytics"
+    },
+    {
+      "name": "engineering",
+      "source": "./plugins/engineering"
+    },
+    {
+      "name": "learning",
+      "source": "./plugins/learning"
+    }
+  ]
+}

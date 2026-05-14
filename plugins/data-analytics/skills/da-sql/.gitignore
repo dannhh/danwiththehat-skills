@@ -1,0 +1,36 @@
+# ── Credentials & Secrets ──
+.env
+.env.*
+**/application_default_credentials.json
+**/service-account*.json
+
+# ── OS / Editor ──
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# ── Playwright MCP (logs, screenshots) ──
+.playwright-mcp/
+
+# ── Python ──
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# ── Sensitive / internal data ──
+data/ai-do-not-read-DONT-EVER/
+
+# ── Analysis outputs (runtime artifacts) ──
+data/output/*/
+
+# ── Build artifacts ──
+dist/
+build/
+*.log
