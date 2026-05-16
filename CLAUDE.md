@@ -4,7 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repo Is
 
-`REDACTED` is the centralized plugin/skill repository for REDACTED's AI coding assistants. Skills are installed by agents (Claude Code, Vercel CLI) directly from Git — there is no build artifact to deploy. The only build step is regenerating the marketplace index manifest.
+`danwiththehat-skills` is a personal plugin/skill repository for AI coding assistants (Claude Code, Vercel CLI). Skills are installed by agents directly from Git — there is no build artifact to deploy. The only build step is regenerating the marketplace index manifest.
+
+### Plugins
+
+| Plugin | Skills | Purpose |
+|---|---|---|
+| `data-analytics` | `da-sql` | SQL analysis, query writing, and dashboarding with persistent lt-memory |
+| `engineering` | `improve-codebase-architecture`, `test-driven-development` | Software design and TDD workflows |
+| `learning` | `concept-learner` (`/study`, `/quiz`, `/materials`) | Spaced-repetition learning with persistent concept and progress memory |
 
 ## Commands
 

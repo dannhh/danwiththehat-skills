@@ -24,10 +24,10 @@ description: Use this skill when the user asks to cherry-pick a Gerrit patchset 
 **Good (long — use `|` block scalar, preferred for multiline):**
 ```yaml
 description: |
-  Tạo Noti Campaign end-to-end cho REDACTED Agentic Marketing Platform.
-  Dùng khi user muốn tạo mới noti campaign: "tạo campaign",
-  "tạo noti", "muốn gửi thông báo", "launch campaign", hoặc paste brief.
-  Flow: intent → prefetch MCP → draft content → re-confirm → push test → submit.
+  Debug a failing CI pipeline and surface the root cause.
+  Use when the user shares a failed run: "CI is red", "build failed",
+  "tests are flaky", or pastes a job URL or error log.
+  Flow: parse error → identify failing step → locate cause in code → suggest fix.
 ```
 
 **Bad:**

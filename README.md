@@ -1,103 +1,54 @@
-# 🛠 REDACTED AI Skills
+# danwiththehat-skills
 
-A centralized, multi-agent skill repository for managing AI coding assistant skills, now following the [Vercel Agent Skills](https://agentskills.io/) specification.
+A personal plugin/skill repository for AI coding assistants (Claude Code, Vercel CLI), following the [Vercel Agent Skills](https://agentskills.io/) specification.
 
-> 📖 Read the [Best Practices Guide](./BEST_PRACTICES.md) before adding a new skill.
+> Read the [Best Practices Guide](./BEST_PRACTICES.md) before adding a new skill.
 
-## ✨ Features
+## Plugins
 
-## 🚀 Usage
+| Plugin | Skills | Purpose |
+|---|---|---|
+| `data-analytics` | `da-sql` | SQL analysis, query writing, and dashboarding with persistent lt-memory |
+| `engineering` | `improve-codebase-architecture`, `test-driven-development` | Software design and TDD workflows |
+| `learning` | `concept-learner` (`/study`, `/quiz`, `/materials`) | Spaced-repetition learning with persistent concept and progress memory |
 
-### Using Vercel `agent-skills` CLI (Recommended)
+## Usage
 
-You can install `REDACTED` directly using the Vercel `skills` CLI by pointing it natively to this Git repository (it automatically evaluates the source tree).
-
-```bash
-# Add the entire suite of skills natively
-npx skills add https://skills.mservice.io/.git
-```
-
-**Advanced Installation Examples:**
-```bash
-# Add specific skills explicitly by their names (e.g., the 'gerrit-workflow' skill)
-npx skills add https://skills.mservice.io/.git --skill gerrit-workflow
-
-# Install globally applied to a specific agent (e.g., Claude Code)
-npx skills add https://skills.mservice.io/.git -g --agent claude-code
-```
-
-### Using Claude Code Marketplace (Native GUI)
-
-You can install plugins interactively directly inside the Claude Code terminal layout.
-
-To add this repository to your Claude Code marketplace list using the standard internal HTTP domain, **you must append `.git` to the URL** so Claude natively recognizes it as a Git repository and clones the physics files successfully:
+### Claude Code Marketplace
 
 ```bash
-# Add the remote repository with .git explicitly
-/plugin marketplace add https://skills.mservice.io/.git
-```
+# Add this repo to your Claude Code marketplace
+/plugin marketplace add https://github.com/dannhh/danwiththehat-skills.git
 
-Once linked, you can use the graphical UI directly within Claude Code:
-```bash
+# Then install a plugin via the UI
 /plugin
 ```
 
-Or you can install a specific skill or **Bundle Pack** explicitly:
+### Vercel `npx skills` CLI
+
 ```bash
-# Install an entire bundle pack (groups all skills together)
-/plugin install git-pack@REDACTED
+# Add all skills
+npx skills add https://github.com/dannhh/danwiththehat-skills.git
+
+# Add a specific skill
+npx skills add https://github.com/dannhh/danwiththehat-skills.git --skill concept-learner
 ```
 
----
-
-## 🗂 Organization
-
-Skills are organized into **Groups** within the `skills/` directory:
-
-- **Generic Groups**: Single noun for general technology (e.g., `git`, `workflow`).
-- **Team Groups**: Prefix `team-` followed by the team name (e.g., `team-payment`).
-
-### Structure Example
-The `skills` CLI and Claude Code both support deep-scanning for nested subgroups:
-
-```
-skills/
-  ├── git/                     # Generic group
-  │   └── gerrit/              # Subgroup
-  │       ├── gerrit-cherry-pick/
-  │       └── gerrit-checkout-branch/
-  └── team-payment/            # Team group
-      └── internal-api/        # Subgroup
-          └── reconciliation-rules/
-```
-
----
-
-## 🛠 Development
+## Development
 
 ### Adding a New Skill
-1. Create a directory: `skills/<group>/[<subgroup>/]my-new-skill/`.
-2. Author your `SKILL.md` following the [Best Practices Guide](./BEST_PRACTICES.md).
-3. Ensure the `name` in frontmatter matches the directory name exactly.
 
-### Building & Testing Locally
-Because this repository is served exactly as it rests in Git, you **must build and commit the `.claude-plugin/marketplace.json` manifest locally** whenever you add a new skill!
+1. Create `plugins/<plugin>/skills/<skill-name>/SKILL.md` — `name` in frontmatter must match directory name.
+2. Ensure `plugins/<plugin>/.claude-plugin/plugin.json` exists.
+3. Run `python3 scripts/build.py` to regenerate `marketplace.json`.
+4. Commit both the new `SKILL.md` and the updated manifests together.
 
-Run the build script before opening a pull request:
+### Build & Test
 
 ```bash
-# Refreshes `.claude-plugin/marketplace.json` and writes `.claude-plugin/plugin.json` for each skill and existing pack
+# Regenerate .claude-plugin/marketplace.json
 python3 scripts/build.py
+
+# End-to-end integration test (requires npx and claude CLI)
+bash scripts/test-integration.sh
 ```
-
-To verify your new skills natively on your local machine before pushing:
-
-```bash
-# Run the automated end-to-end integration test
-./scripts/test-integration.sh
-```
-
-
-
-## 📄 License
-Internal use only. © REDACTED Developer Team
