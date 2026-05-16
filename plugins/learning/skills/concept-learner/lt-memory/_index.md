@@ -8,7 +8,7 @@ Catalog of all studied concepts. Read this first at the start of every session.
 - **<Concept>** — `concepts/<concept>.md` | Last studied: YYYY-MM-DD | Quiz avg: X.X/5
 -->
 
-_No concepts studied yet._
+- **vllm** — `concepts/vllm.md` | Last studied: 2026-05-14 | Quiz avg: —
 
 ## Instructions
 
