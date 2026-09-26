@@ -10,7 +10,8 @@ A personal plugin/skill repository for AI coding assistants (Claude Code, Vercel
 |---|---|---|
 | `data-analytics` | `da-sql` | SQL analysis, query writing, and dashboarding with persistent lt-memory |
 | `engineering` | `improve-codebase-architecture`, `test-driven-development` | Software design and TDD workflows |
-| `learning` | `concept-learner` (`/study`, `/quiz`, `/materials`) | Spaced-repetition learning with persistent concept and progress memory |
+| `learning` | `concept-learner` (`/study`, `/note`, `/quiz`, `/materials`) | Spaced-repetition learning; notes stored in an Obsidian vault (`$NOTES_DIR`) |
+| `productivity` | `worklog` (`/log`) | Work log, standups and weekly recaps in the same Obsidian daily notes |
 
 ## Usage
 
@@ -33,6 +34,16 @@ npx skills add https://github.com/dannhh/danwiththehat-skills.git
 # Add a specific skill
 npx skills add https://github.com/dannhh/danwiththehat-skills.git --skill concept-learner
 ```
+
+### Notes vault (Obsidian)
+
+`learning` and `productivity` write to an Obsidian vault so notes sync across devices (Obsidian Sync, iCloud, or git). Point the skills at it in `~/.claude/settings.json`:
+
+```json
+{ "env": { "NOTES_DIR": "/Users/<you>/notes" } }
+```
+
+Layout: `learning/` (concepts, progress, materials, `_index.md`) and `journal/YYYY-MM-DD.md` daily notes. Without `NOTES_DIR`, skills fall back to their local `lt-memory/`.
 
 ## Development
 

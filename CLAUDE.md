@@ -12,7 +12,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 |---|---|---|
 | `data-analytics` | `da-sql` | SQL analysis, query writing, and dashboarding with persistent lt-memory |
 | `engineering` | `improve-codebase-architecture`, `test-driven-development` | Software design and TDD workflows |
-| `learning` | `concept-learner` (`/study`, `/quiz`, `/materials`) | Spaced-repetition learning with persistent concept and progress memory |
+| `learning` | `concept-learner` (`/study`, `/note`, `/quiz`, `/materials`) | Spaced-repetition learning; notes stored in an Obsidian vault (`$NOTES_DIR`) |
+| `productivity` | `worklog` (`/log`) | Work log, standups and weekly recaps in the same Obsidian daily notes |
 
 ## Commands
 
