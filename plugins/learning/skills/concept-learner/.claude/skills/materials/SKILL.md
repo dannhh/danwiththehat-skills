@@ -11,6 +11,8 @@ description: >
 
 Generate study artifacts for a concept on demand.
 
+> **Paths:** resolve `<MEM>` and `<JOURNAL>` from `NOTES_DIR` first — see "Storage Location" in the concept-learner `CLAUDE.md`.
+
 ## Phase 0 — Clarify
 
 Before generating, ask only what's missing:
@@ -21,7 +23,7 @@ Before generating, ask only what's missing:
 | Format | Notes, summary, flashcards, reference sheet |
 | Depth | Beginner overview, intermediate, advanced |
 
-Load `lt-memory/concepts/<concept>.md` if available — use existing notes as the source of truth.
+Load `<MEM>/concepts/<concept>.md` if available — use existing notes as the source of truth.
 
 ## Formats
 
@@ -47,11 +49,15 @@ Q&A pairs covering:
 - Apply-it scenarios
 - Common misconceptions
 
-Format:
+Format (Obsidian Spaced Repetition plugin — reviewable on phone):
 ```
-Q: <question>
-A: <answer>
+#flashcards/<concept>
+
+<question>
+?
+<answer>
 ```
+Separate cards with a blank line. Use `<question>::<answer>` for one-line cards.
 
 ### Reference Sheet
 Quick-lookup format:
@@ -61,12 +67,14 @@ Quick-lookup format:
 
 ## Output
 
-Save to `materials/<concept>/<format>-<YYYY-MM-DD>.md`.
+Save to `<MEM>/materials/<concept>/<format>-<YYYY-MM-DD>.md`.
 
-Update `lt-memory/_index.md` with a pointer to the generated file.
+Start the file with frontmatter `tags: [materials]` and a link back: `Source: [[<concept>]]`.
+
+Update `<MEM>/_index.md` with a pointer to the generated file (as a `[[wikilink]]`).
 
 ## Rules
 
-- Ground every claim in `lt-memory/concepts/<concept>.md` if it exists — don't contradict prior study notes
+- Ground every claim in `<MEM>/concepts/<concept>.md` if it exists — don't contradict prior study notes
 - Flag anything uncertain rather than fabricating
 - Keep flashcard answers concise — one clear fact per card

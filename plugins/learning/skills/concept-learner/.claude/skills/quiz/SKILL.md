@@ -10,9 +10,11 @@ description: >
 
 Spaced repetition quiz: load history → select questions → grade → save scores.
 
+> **Paths:** resolve `<MEM>` and `<JOURNAL>` from `NOTES_DIR` first — see "Storage Location" in the concept-learner `CLAUDE.md`.
+
 ## Phase 0 — Load History
 
-Read `lt-memory/progress/<concept>.md` to determine:
+Read `<MEM>/progress/<concept>-progress.md` to determine:
 - What has been quizzed before
 - Which areas scored low (< 70%) — prioritize these
 - When last quizzed — flag if overdue (> 7 days)
@@ -54,9 +56,13 @@ Give brief feedback after each answer:
 
 ## Phase 3 — Save Progress
 
-Write to `lt-memory/progress/<concept>.md`:
+Write to `<MEM>/progress/<concept>-progress.md`:
 
 ```markdown
+---
+tags: [progress]
+concept: "[[<concept>]]"
+---
 # <Concept> — Progress
 
 ## Sessions
@@ -73,7 +79,10 @@ Write to `lt-memory/progress/<concept>.md`:
 | ...   | ...       | ...          |
 ```
 
-Update `lt-memory/_index.md` with latest quiz date and average score.
+Update `<MEM>/_index.md` with latest quiz date and average score.
+
+Append under `## Learned` in today's daily note (`<JOURNAL>/<YYYY-MM-DD>.md`):
+`- HH:MM /quiz [[<concept>]] — X.X/5, weak: <topics>`
 
 ## Rules
 

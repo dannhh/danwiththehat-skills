@@ -3,13 +3,15 @@ name: study
 description: >
   Guided study session for a new concept. Breaks the concept down into layers,
   explains progressively from fundamentals to nuance, checks understanding at each
-  layer, and saves notes to lt-memory. Use when the user wants to learn or deep-dive
+  layer, and saves notes to the Obsidian notes vault. Use when the user wants to learn or deep-dive
   into a concept they are unfamiliar with or want to solidify.
 ---
 
 # Study
 
 Structured guided session: orient → layer → check → save.
+
+> **Paths:** resolve `<MEM>` and `<JOURNAL>` from `NOTES_DIR` first — see "Storage Location" in the concept-learner `CLAUDE.md`.
 
 ## Phase 0 — Orient
 
@@ -21,7 +23,7 @@ Before explaining anything, clarify:
 | User's background | What do they already know? |
 | Goal | Broad understanding, practical use, or exam prep? |
 
-Load `lt-memory/concepts/<concept>.md` if it exists — skip what's already covered.
+Load `<MEM>/concepts/<concept>.md` if it exists — skip what's already covered.
 
 ## Phase 1 — Lay the Foundation
 
@@ -58,9 +60,14 @@ What the basics don't cover:
 
 ## Phase 5 — Save to Memory
 
-Write to `lt-memory/concepts/<concept>.md`:
+Write to `<MEM>/concepts/<concept>.md`:
 
 ```markdown
+---
+tags: [concept]
+created: <YYYY-MM-DD>
+updated: <YYYY-MM-DD>
+---
 # <Concept>
 
 ## Summary
@@ -76,10 +83,15 @@ Write to `lt-memory/concepts/<concept>.md`:
 <what needed extra explanation>
 
 ## Connected Concepts
-- ...
+- [[related-concept]] — how it relates
 ```
 
-Update `lt-memory/_index.md` with the concept entry.
+If the file already exists, merge into it (keep the user's own edits) and bump `updated`.
+
+Update `<MEM>/_index.md` with the concept entry.
+
+Append one line under `## Learned` in today's daily note (`<JOURNAL>/<YYYY-MM-DD>.md`, format in `note/SKILL.md`):
+`- HH:MM /study [[<concept>]] — <one-line takeaway>`
 
 ## Rules
 
