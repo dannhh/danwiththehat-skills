@@ -1,0 +1,13 @@
+# ── Credentials & Secrets ──
+.env
+.env.*
+
+# ── OS / Editor ──
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
