@@ -123,7 +123,7 @@ metadata:
 - [ ] `metadata.tags` are set
 - [ ] `SKILL.md` is under 500 lines
 - [ ] Heavy reference material is moved to `references/` or `assets/`
-- [ ] Placed in the correct plugin under `plugins/<name>/skills/`
+- [ ] Placed at `plugins/<name>/skills/<workspace>/.claude/skills/<command>/SKILL.md`
 - [ ] `plugins/<name>/.claude-plugin/plugin.json` exists for the plugin to be indexed
 - [ ] Optional: verify locally with `python3 scripts/build.py && bash scripts/test-integration.sh`
 

@@ -1,73 +1,85 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working in this repository.
 
-## What This Repo Is
+## 🎩 What this repo is
 
-`danwiththehat-skills` is a personal plugin/skill repository for AI coding assistants (Claude Code, Vercel CLI). Skills are installed by agents directly from Git — there is no build artifact to deploy. The only build step is regenerating the marketplace index manifest.
+`danwiththehat-skills` is a personal collection of Claude Code skills, grouped into plugins. It is served straight from Git: no build artifact, no deploy. The only build step regenerates the plugin manifests.
 
-### Plugins
-
-| Plugin | Skills | Purpose |
+| Plugin | Workspace | Commands |
 |---|---|---|
-| `data-analytics` | `da-sql` | SQL analysis, query writing, and dashboarding with persistent lt-memory |
-| `engineering` | `improve-codebase-architecture`, `test-driven-development` | Software design and TDD workflows |
-| `learning` | `concept-learner` (`/study`, `/note`, `/quiz`, `/materials`) | Spaced-repetition learning; notes stored in an Obsidian vault (`$NOTES_DIR`) |
-| `productivity` | `worklog` (`/log`) | Work log, standups and weekly recaps in the same Obsidian daily notes |
+| `learning` | `concept-learner` | `/study` `/note` `/quiz` `/materials` |
+| `productivity` | `worklog` | `/log` |
+| `data-analytics` | `da-sql` | `/deep-analyze` + `da-sql-analyst` agent |
+| `engineering` | `engineering` | `/test-driven-development` `/improve-codebase-architecture` |
 
-## Commands
+## ⚙️ Commands
 
 ```bash
-# After adding/modifying any plugin — regenerates .claude-plugin/marketplace.json and updates plugin versions
-python3 scripts/build.py
-
-# End-to-end integration test (requires npx and claude CLI)
-bash scripts/test-integration.sh
+python3 scripts/build.py            # regenerate .claude-plugin/marketplace.json + plugin versions
+bash scripts/test-integration.sh    # end-to-end check (needs npx and the claude CLI)
 ```
 
-There are no lint or unit test commands — `test-integration.sh` is the only automated test.
+No lint and no unit tests. `test-integration.sh` is the only automated check.
 
-## Architecture
+## 🗂 Layout
 
-### Plugin discovery flow
-
-`build.py` scans `plugins/*/` for `.claude-plugin/plugin.json` files. For each plugin found it:
-1. Derives `version` from the last git commit touching that plugin dir (format: `YYYY.mmdd.HHMM`)
-2. Writes the updated version back into the plugin's own `plugin.json`
-3. Appends an entry to `.claude-plugin/marketplace.json` at the repo root
-
-The root `.claude-plugin/marketplace.json` is what Claude Code reads when a user runs `/plugin marketplace add <url>`. It must be committed — the file is served directly from Git, not a build server.
-
-### Skill layout
+Each skill folder is a **self-contained workspace**: its own `CLAUDE.md` plus project-scoped skills under `.claude/skills/`. Commands only exist when Claude Code is opened inside that folder.
 
 ```
-plugins/
-└── <plugin-name>/
-    ├── .claude-plugin/
-    │   └── plugin.json          ← name, version, description (version auto-updated by build.py)
-    └── skills/
-        └── <skill-name>/
-            └── SKILL.md         ← frontmatter (name, description, metadata.tags) + instructions
+plugins/<plugin>/
+├── .claude-plugin/plugin.json          ← name, description; version is written by build.py
+└── skills/<workspace>/
+    ├── CLAUDE.md                       ← workspace context, loaded when opened there
+    ├── .gitignore
+    └── .claude/
+        ├── skills/<command>/
+        │   ├── SKILL.md                ← frontmatter name == folder name
+        │   └── references/…            ← optional, loaded on demand
+        └── agents/<agent>.md           ← optional subagents
 ```
 
-`SKILL.md` frontmatter `name` **must exactly match** the directory name.
+> [!IMPORTANT]
+> This nested layout is a deliberate choice; keep it for new skills. Known trade-off: `/plugin install` registers the plugins but loads **zero** skills (verified with `claude --plugin-dir plugins/learning`). Don't "fix" it by flattening unless asked.
 
-### Two consumers, two discovery paths
+### How the manifests are built
 
-| Consumer | Reads | Notes |
+`build.py` scans `plugins/*/.claude-plugin/plugin.json` and, for each plugin:
+
+1. sets `version` from the last commit touching that plugin (`YYYY.mmdd.HHMM`)
+2. writes it back into the plugin's `plugin.json`
+3. adds the plugin to the root `.claude-plugin/marketplace.json`
+
+Every plugin's version is recomputed on every run, so `plugin.json` diffs in untouched plugins are expected. Commit `marketplace.json`; it is read directly from Git.
+
+## 🗒 User data lives outside the repo
+
+Notes, progress, and logs belong to the user, not to the plugin.
+
+| Variable | Used by | Points to |
 |---|---|---|
-| Claude Code `/plugin` | `.claude-plugin/marketplace.json` → plugin dirs | Supports nested skills |
-| Vercel `npx skills` | Scans Git tree for `SKILL.md` directly | Flattened; skill names must be globally unique |
+| `NOTES_DIR` | `learning`, `productivity` | Obsidian vault (`~/notes`): `learning/` + `journal/YYYY-MM-DD.md` |
 
-### Description field rules (critical)
+- New skills that store data must read a location from an env var, falling back to a local `lt-memory/` only when it is unset.
+- Write Obsidian-friendly Markdown: frontmatter, `[[wikilinks]]`, append-only daily notes. Never touch `.obsidian/`.
 
-The `description` field in `SKILL.md` frontmatter is how agents decide whether to invoke a skill. Long descriptions (>200 chars) **must use YAML `|` block scalar** — single-line strings that long are silently dropped by the Vercel CLI parser.
+## ✍️ Writing skills
 
-## Adding a New Skill
+- `description` decides whether a skill fires. State **when** to use it and the trigger phrases (Vietnamese ones too).
+- Descriptions over 200 chars must be a YAML block scalar (`|` or `>`). Long single-line strings are silently dropped by the Vercel CLI.
+- Keep `SKILL.md` under 500 lines; move heavy material to `references/`.
+- Full rules: [BEST_PRACTICES.md](./BEST_PRACTICES.md).
 
-1. Create `plugins/<plugin>/skills/<skill-name>/SKILL.md` — `name` in frontmatter must match directory name.
-2. Ensure `plugins/<plugin>/.claude-plugin/plugin.json` exists (create plugin first if needed).
-3. Run `python3 scripts/build.py` to regenerate `marketplace.json`.
-4. Commit both the new `SKILL.md` and the updated manifests together.
+**Adding one:**
 
-> See `BEST_PRACTICES.md` for skill authoring rules (description format, line limits, tags, progressive disclosure).
+1. Create `plugins/<plugin>/skills/<workspace>/.claude/skills/<command>/SKILL.md`
+2. New plugin? Add `plugins/<plugin>/.claude-plugin/plugin.json` and a workspace `CLAUDE.md`
+3. Run `python3 scripts/build.py`
+4. Update the command tables in this file and in `README.md`
+5. Commit the skill and the manifests together
+
+## 🚫 Rules
+
+- **No company or proprietary data.** No internal table names, project IDs, queries, or results. Examples must use generic schemas (`user_id`, `variant`, `<project>.<dataset>.<table>`). This repo was already scrubbed once.
+- **Commit messages:** `[type] Short message`, where type is `feat` / `fix` / `chore` / `docs` / `refactor`. No mention of Claude or coding agents, and no `Co-Authored-By` trailer.
+- **README voice:** first person, "one person, many hats" theme. Keep it when editing.
