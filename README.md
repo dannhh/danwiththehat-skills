@@ -1,65 +1,148 @@
+<div align="center">
+
+```
+      _____
+     |     |
+   __|_____|__
+     ( •_• )      one person, many hats
+```
+
 # danwiththehat-skills
 
-A personal plugin/skill repository for AI coding assistants (Claude Code, Vercel CLI), following the [Vercel Agent Skills](https://agentskills.io/) specification.
+*The hats I wear, packed as Claude Code skills.*
 
-> Read the [Best Practices Guide](./BEST_PRACTICES.md) before adding a new skill.
+</div>
 
-## Plugins
+I switch roles a lot in a day: student in the morning, analyst after lunch, engineer when something breaks, and the person who can't remember what they did yesterday at standup. Each plugin here is one of those hats. Put it on, and Claude knows how to help with that job, and **remembers** what happened last time.
 
-| Plugin | Skills | Purpose |
-|---|---|---|
-| `data-analytics` | `da-sql` | SQL analysis, query writing, and dashboarding with persistent lt-memory |
-| `engineering` | `improve-codebase-architecture`, `test-driven-development` | Software design and TDD workflows |
-| `learning` | `concept-learner` (`/study`, `/note`, `/quiz`, `/materials`) | Spaced-repetition learning; notes stored in an Obsidian vault (`$NOTES_DIR`) |
-| `productivity` | `worklog` (`/log`) | Work log, standups and weekly recaps in the same Obsidian daily notes |
+Nothing fancy. Plain Markdown in, plain Markdown out. Notes end up in Obsidian so I can read them on my phone on the bus.
 
-## Usage
+---
 
-### Claude Code Marketplace
+## 01 · The student hat `learning`
+
+For when I'm trying to actually understand something, not just skim it.
+
+| Command | What happens |
+|---|---|
+| `/study paged attention` | A proper lesson: asks what I already know, builds up in layers, makes me explain it back |
+| `/note vllm prefix caching reuses KV pages for shared prompts` | One line in, filed under today and under the topic. No lecture |
+| `/quiz vllm` | Goes straight for what I got wrong last time. Honest grading, 1 to 5 |
+| `/materials vllm flashcards` | Flashcards I can flip through in Obsidian while waiting for coffee |
+| `/note review` | "What did I learn this week?" plus which topics are overdue for a quiz |
+
+It works in Vietnamese too: *"note lại: hôm nay học được..."* is fine.
+
+## 02 · The logbook hat `productivity`
+
+Because "what did you do yesterday?" should not require archaeology.
+
+```markdown
+## Work log
+- 09:40 ✅ Ship retry logic for webhook sender #project/payments
+- 14:10 ⛔ blocked: staging migration, waiting on [[teammate]]
+- [ ] Write rollout note #project/payments
+```
+
+- `/log fixed the flaky export test` adds a line to today's note
+- `/log standup` gives me yesterday / today / blockers, ready to paste
+- `/log recap week` shows what got done per project and which todos are going stale
+- Can draft entries from today's `git log` if I forgot to log as I went (asks before writing)
+
+## 03 · The analyst hat `data-analytics`
+
+A SQL analyst that learns the warehouse as it goes. Big vague question in, queries and a clear answer out, and every table quirk it trips over gets written down so it never trips twice.
+
+- **`da-sql`**: recall what it knows → write and run SQL (dry run first, it respects the bill) → save what it learned
+- **`/deep-analyze <topic>`**: agree on the metric → plan → overall trend → break down by users and by product → recommendations, each tagged with how confident it really is
+
+## 04 · The engineer hat `engineering`
+
+- **`/test-driven-development`**: one failing test, make it pass, clean up, repeat. Small vertical slices, no big-bang PRs
+- **`/improve-codebase-architecture`**: finds the shallow, tangled bits and suggests how to make modules deeper and easier to test
+
+---
+
+## Putting a hat on
+
+Each hat lives in its own folder with its own `CLAUDE.md`. Open Claude Code **inside that folder** and the commands are there:
 
 ```bash
-# Add this repo to your Claude Code marketplace
+git clone https://github.com/dannhh/danwiththehat-skills.git
+cd danwiththehat-skills/plugins/learning/skills/concept-learner
+claude
+```
+
+| Hat | Folder |
+|---|---|
+| 01 student | `plugins/learning/skills/concept-learner` |
+| 02 logbook | `plugins/productivity/skills/worklog` |
+| 03 analyst | `plugins/data-analytics/skills/da-sql` |
+| 04 engineer | `plugins/engineering/skills/engineering` |
+
+<details>
+<summary>Marketplace / <code>npx skills</code></summary>
+
+<br>
+
+```bash
 /plugin marketplace add https://github.com/dannhh/danwiththehat-skills.git
-
-# Then install a plugin via the UI
-/plugin
-```
-
-### Vercel `npx skills` CLI
-
-```bash
-# Add all skills
 npx skills add https://github.com/dannhh/danwiththehat-skills.git
-
-# Add a specific skill
-npx skills add https://github.com/dannhh/danwiththehat-skills.git --skill concept-learner
 ```
 
-### Notes vault (Obsidian)
+Heads up: the skills sit in nested `.claude/skills/` folders, so `/plugin install` registers the plugins but doesn't load their commands. The folder way above is the one that works.
+</details>
 
-`learning` and `productivity` write to an Obsidian vault so notes sync across devices (Obsidian Sync, iCloud, or git). Point the skills at it in `~/.claude/settings.json`:
+## Where the notes go
 
-```json
-{ "env": { "NOTES_DIR": "/Users/<you>/notes" } }
+The student and logbook hats write into one Obsidian vault, one daily note per day.
+
+```mermaid
+flowchart LR
+    A["/study · /note · /quiz"] --> V[("~/notes")]
+    B["/log"] --> V
+    V --> S{{Obsidian Sync}}
+    S --> M["phone"]
+    S --> L["laptop"]
 ```
 
-Layout: `learning/` (concepts, progress, materials, `_index.md`) and `journal/YYYY-MM-DD.md` daily notes. Without `NOTES_DIR`, skills fall back to their local `lt-memory/`.
-
-## Development
-
-### Adding a New Skill
-
-1. Create `plugins/<plugin>/skills/<skill-name>/SKILL.md` — `name` in frontmatter must match directory name.
-2. Ensure `plugins/<plugin>/.claude-plugin/plugin.json` exists.
-3. Run `python3 scripts/build.py` to regenerate `marketplace.json`.
-4. Commit both the new `SKILL.md` and the updated manifests together.
-
-### Build & Test
-
-```bash
-# Regenerate .claude-plugin/marketplace.json
-python3 scripts/build.py
-
-# End-to-end integration test (requires npx and claude CLI)
-bash scripts/test-integration.sh
 ```
+~/notes/
+├── journal/2026-09-26.md       ← ## Learned + ## Work log
+└── learning/
+    ├── _index.md               ← every topic, last studied, quiz average
+    ├── concepts/<topic>.md     ← linked with [[wikilinks]], so the graph view grows
+    ├── progress/<topic>-progress.md
+    └── materials/<topic>/
+```
+
+**Setup, once:**
+
+1. Tell the skills where the vault is, in `~/.claude/settings.json`, then restart Claude Code:
+   ```json
+   { "env": { "NOTES_DIR": "/Users/<you>/notes" } }
+   ```
+2. Obsidian → **Open folder as vault** → `~/notes`, and turn on **Sync** (iCloud or git work too).
+3. Nice to have: the **Spaced Repetition** and **Dataview** community plugins.
+
+No `NOTES_DIR`? Notes stay in a local `lt-memory/` inside the skill folder.
+
+## Sewing a new hat
+
+```
+plugins/<plugin>/
+├── .claude-plugin/plugin.json
+└── skills/<skill>/
+    ├── CLAUDE.md
+    └── .claude/skills/<command>/SKILL.md
+```
+
+1. Write the `SKILL.md` (frontmatter `name` must match its folder). [BEST_PRACTICES.md](./BEST_PRACTICES.md) has the rules, especially for `description`
+2. `python3 scripts/build.py` to refresh `marketplace.json` and plugin versions
+3. `bash scripts/test-integration.sh` for the end-to-end check
+4. Commit the skill and the manifests together
+
+<div align="center">
+<br>
+<sub>made with a hat on</sub>
+</div>
