@@ -15,6 +15,10 @@
     {
       "name": "learning",
       "source": "./plugins/learning"
+    },
+    {
+      "name": "productivity",
+      "source": "./plugins/productivity"
     }
   ]
 }
