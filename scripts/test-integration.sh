@@ -40,7 +40,7 @@ rm -rf "$TMP_DIR"
 
 echo -e "\n🧪 Testing Claude Code marketplace CLI natively against local repository..."
 
-# Rename marketplace to avoid colliding with user's production "REDACTED"
+# Rename marketplace to avoid colliding with the installed production marketplace
 sed -i "s/\"name\": \"${MARKETPLACE_NAME}\"/\"name\": \"${TEST_MARKETPLACE_NAME}\"/" "${MARKETPLACE_JSON}"
 trap "sed -i 's/\"name\": \"${TEST_MARKETPLACE_NAME}\"/\"name\": \"${MARKETPLACE_NAME}\"/' '${MARKETPLACE_JSON}'" EXIT
 

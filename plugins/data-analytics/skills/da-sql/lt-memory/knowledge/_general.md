@@ -9,15 +9,15 @@
 
 ```bash
 # Set these before every BQ command
-export CLOUDSDK_PYTHON=/opt/homebrew/bin/python3.9
+export CLOUDSDK_PYTHON=/path/to/python3
 export PATH="/path/to/google-cloud-sdk/bin:$PATH"
 
-# Job project (billing): REDACTED
+# Job project (billing): <YOUR_BILLING_PROJECT>
 # Data project (where data lives): varies per query
 ```
 
 **Configure your projects:**
-- Job/billing project: `REDACTED`
+- Job/billing project: _(set per workspace)_
 - Data project: _(varies — specify per query)_
 
 ---

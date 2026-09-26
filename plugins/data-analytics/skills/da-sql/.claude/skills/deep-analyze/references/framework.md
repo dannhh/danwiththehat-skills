@@ -72,18 +72,18 @@ END AS tenure_cohort
 
 ## 3. SQL Patterns by Phase
 
-### Phase 1 — Overall (BigQuery REDACTED example)
+### Phase 1 — Overall (BigQuery sharded event table example)
 
 ```sql
 SELECT
-  tag_name AS model,
-  SUM(CAST(has_impr AS INT64))  AS impressions,
-  SUM(CAST(has_click AS INT64)) AS clicks,
-  ROUND(SUM(CAST(has_click AS INT64)) / NULLIF(SUM(CAST(has_impr AS INT64)), 0) * 100, 2) AS ctr_pct,
-  COUNT(DISTINCT agent_id) AS unique_users
+  variant,
+  SUM(CAST(is_impression AS INT64))  AS impressions,
+  SUM(CAST(is_click AS INT64)) AS clicks,
+  ROUND(SUM(CAST(is_click AS INT64)) / NULLIF(SUM(CAST(is_impression AS INT64)), 0) * 100, 2) AS ctr_pct,
+  COUNT(DISTINCT user_id) AS unique_users
 FROM `<project>.<dataset>.<table_*>`
 WHERE _TABLE_SUFFIX BETWEEN '<start_yyyymmdd>' AND '<end_yyyymmdd>'
-GROUP BY model
+GROUP BY variant
 ORDER BY impressions DESC
 ```
 
@@ -92,14 +92,14 @@ ORDER BY impressions DESC
 ```sql
 SELECT
   PARSE_DATE('%Y%m%d', _TABLE_SUFFIX) AS dt,
-  tag_name AS model,
-  SUM(CAST(has_impr AS INT64))  AS impressions,
-  ROUND(SUM(CAST(has_click AS INT64)) / NULLIF(SUM(CAST(has_impr AS INT64)), 0) * 100, 2) AS ctr_pct
+  variant,
+  SUM(CAST(is_impression AS INT64))  AS impressions,
+  ROUND(SUM(CAST(is_click AS INT64)) / NULLIF(SUM(CAST(is_impression AS INT64)), 0) * 100, 2) AS ctr_pct
 FROM `<project>.<dataset>.<table_*>`
 WHERE _TABLE_SUFFIX BETWEEN '<start>' AND '<end>'
-  AND tag_name IN (<models>)
-GROUP BY dt, model
-ORDER BY dt, model
+  AND variant IN (<variants>)
+GROUP BY dt, variant
+ORDER BY dt, variant
 ```
 
 ### Phase 3 — Segment breakdown template
@@ -129,15 +129,15 @@ ORDER BY rate_pct DESC
 
 ```sql
 SELECT
-  CAST(pos AS INT64) AS position,
-  tag_name AS model,
-  SUM(CAST(has_impr AS INT64))  AS impressions,
-  ROUND(SUM(CAST(has_click AS INT64)) / NULLIF(SUM(CAST(has_impr AS INT64)), 0) * 100, 2) AS ctr_pct
+  CAST(position AS INT64) AS position,
+  variant,
+  SUM(CAST(is_impression AS INT64))  AS impressions,
+  ROUND(SUM(CAST(is_click AS INT64)) / NULLIF(SUM(CAST(is_impression AS INT64)), 0) * 100, 2) AS ctr_pct
 FROM `<project>.<dataset>.<table_*>`
 WHERE _TABLE_SUFFIX BETWEEN '<start>' AND '<end>'
-  AND CAST(pos AS INT64) <= 9
-GROUP BY position, model
-ORDER BY model, position
+  AND CAST(position AS INT64) <= 9
+GROUP BY position, variant
+ORDER BY variant, position
 ```
 
 ---
@@ -148,9 +148,9 @@ ORDER BY model, position
 
 | Label | Threshold | Example |
 |---|---|---|
-| **High confidence** | >10k impressions, >2pp or >20% relative delta, consistent across days | "MAB CTR 10% vs DNN 9.9% on 6M+ impressions" |
-| **Medium confidence** | 1k–10k impressions, or pattern visible but with some noise | "Hotel booking DNN CTR 2.6× MAB on 97k impr" |
-| **Low confidence / hypothesis** | <1k impressions or single-day observation | "TikTok gift DNN CTR 33% on only 169 impr" |
+| **High confidence** | >10k impressions, >2pp or >20% relative delta, consistent across days | "Variant A CTR 10.0% vs B 9.9% on 6M+ impressions" |
+| **Medium confidence** | 1k–10k impressions, or pattern visible but with some noise | "Category X: variant B CTR 2.6× A on 97k impr" |
+| **Low confidence / hypothesis** | <1k impressions or single-day observation | "Item Y: variant B CTR 33% on only 169 impr" |
 
 ### Recommendation format
 
@@ -166,8 +166,8 @@ ORDER BY model, position
 
 | Observation | Recommendation archetype |
 |---|---|
-| DNN CTR > MAB on new gifts | Increase DNN traffic allocation for newly-launched items |
-| MAB CTR > DNN on established gifts | Preserve MAB for high-volume established inventory |
+| Model-based ranker beats bandit on new items | Increase model traffic allocation for newly-launched items |
+| Bandit beats model on established items | Preserve bandit for high-volume established inventory |
 | Position 0 underperforms | Investigate top-slot ranking logic; consider re-ranking or diversity injection |
 | Power users drive 80% of engagement | Build power-user specific features; monitor casual user conversion |
 | One touchpoint dominates | Invest in under-developed touchpoints as growth levers |
@@ -182,6 +182,6 @@ ORDER BY model, position
 | Confusing correlation with causation | Note "associated with" not "causes"; suggest A/B test to confirm |
 | Reporting rates without volume | Always show impressions/users alongside rate |
 | Comparing unequal time windows | Use same number of days for all comparisons |
-| Ignoring data lag | Check pipeline lag (e.g., REDACTED has ~5-day lag) |
+| Ignoring data lag | Check pipeline lag (some event tables land days late; check the domain file) |
 | Multiple testing: data-mining for significance | Pre-specify hypotheses in Phase 0; treat post-hoc findings as hypotheses |
 | Survivorship bias in cohort analysis | Use event-time anchoring, not calendar-time |

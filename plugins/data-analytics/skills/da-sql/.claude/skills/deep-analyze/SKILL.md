@@ -21,7 +21,7 @@ Before any SQL, clarify with the user. Ask only what's missing:
 
 | What to clarify | Examples |
 |---|---|
-| **Topic** | "CTR of home widget ranking", "checkout conversion", "D7 retention" |
+| **Topic** | "CTR of homepage recommendations", "checkout conversion", "D7 retention" |
 | **Primary metric** | CTR, conversion rate, DAU, revenue, retention rate |
 | **Guardrail metrics** | Don't tank X while improving Y |
 | **Time window** | Last 30 days? Since launch? Around a specific event? |
@@ -82,7 +82,7 @@ Break down by product/surface dimensions. Common ones:
 | Dimension | What to look for |
 |---|---|
 | Entry point / surface | Home, push notification, email, search |
-| Feature or item category | Gift type, content category, price tier |
+| Feature or item category | Product type, content category, price tier |
 | Funnel position | Impression → click → conversion → repeat |
 | Rank / position | Does position 0 underperform vs position 3? |
 | A/B variant (if applicable) | Which variant drives the metric? |
