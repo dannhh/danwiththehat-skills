@@ -2,7 +2,7 @@
 
 Guidance for Claude Code when working in this repository.
 
-## 🎩 What this repo is
+## What this repo is
 
 `danwiththehat-skills` is a personal collection of Claude Code skills, grouped into plugins. It is served straight from Git: no build artifact, no deploy. The only build step regenerates the plugin manifests.
 
@@ -13,7 +13,7 @@ Guidance for Claude Code when working in this repository.
 | `data-analytics` | `da-sql` | `/deep-analyze` + `da-sql-analyst` agent |
 | `engineering` | `engineering` | `/test-driven-development` `/improve-codebase-architecture` |
 
-## ⚙️ Commands
+## Commands
 
 ```bash
 python3 scripts/build.py            # regenerate .claude-plugin/marketplace.json + plugin versions
@@ -22,7 +22,7 @@ bash scripts/test-integration.sh    # end-to-end check (needs npx and the claude
 
 No lint and no unit tests. `test-integration.sh` is the only automated check.
 
-## 🗂 Layout
+## Layout
 
 Each skill folder is a **self-contained workspace**: its own `CLAUDE.md` plus project-scoped skills under `.claude/skills/`. Commands only exist when Claude Code is opened inside that folder.
 
@@ -52,7 +52,7 @@ plugins/<plugin>/
 
 Every plugin's version is recomputed on every run, so `plugin.json` diffs in untouched plugins are expected. Commit `marketplace.json`; it is read directly from Git.
 
-## 🗒 User data lives outside the repo
+## User data lives outside the repo
 
 Notes, progress, and logs belong to the user, not to the plugin.
 
@@ -63,7 +63,7 @@ Notes, progress, and logs belong to the user, not to the plugin.
 - New skills that store data must read a location from an env var, falling back to a local `lt-memory/` only when it is unset.
 - Write Obsidian-friendly Markdown: frontmatter, `[[wikilinks]]`, append-only daily notes. Never touch `.obsidian/`.
 
-## ✍️ Writing skills
+## Writing skills
 
 - `description` decides whether a skill fires. State **when** to use it and the trigger phrases (Vietnamese ones too).
 - Descriptions over 200 chars must be a YAML block scalar (`|` or `>`). Long single-line strings are silently dropped by the Vercel CLI.
@@ -78,8 +78,8 @@ Notes, progress, and logs belong to the user, not to the plugin.
 4. Update the command tables in this file and in `README.md`
 5. Commit the skill and the manifests together
 
-## 🚫 Rules
+## Rules
 
 - **No company or proprietary data.** No internal table names, project IDs, queries, or results. Examples must use generic schemas (`user_id`, `variant`, `<project>.<dataset>.<table>`). This repo was already scrubbed once.
 - **Commit messages:** `[type] Short message`, where type is `feat` / `fix` / `chore` / `docs` / `refactor`. No mention of Claude or coding agents, and no `Co-Authored-By` trailer.
-- **README voice:** first person, "one person, many hats" theme. Keep it when editing.
+- **README voice:** first person, "one person, many hats" theme, minimal emoji (numbered `01`–`04` hats instead of icons). Keep it when editing.
