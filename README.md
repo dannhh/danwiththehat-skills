@@ -4,7 +4,7 @@
       _____
      |     |
    __|_____|__     one person, many hats.
-     ( -_- )       packed as Claude Code skills.
+     ( -_- )
 ```
 
 I switch roles a lot in a day: student in the morning, analyst after lunch, engineer when something breaks, and the person who can't remember what they did yesterday at standup. Each plugin here is one of those hats. Put it on, and Claude knows how to help with that job, and **remembers** what happened last time.
