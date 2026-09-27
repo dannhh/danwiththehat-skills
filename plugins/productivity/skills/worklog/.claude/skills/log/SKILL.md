@@ -11,7 +11,7 @@ description: |
 
 Two modes: **add** (default) → append an entry. **recap** → summarize past entries.
 
-> **Paths:** resolve `<JOURNAL>` from `NOTES_DIR` first — see "Storage Location" in the worklog `CLAUDE.md`.
+> **Vault:** resolve `<VAULT>` and read `<VAULT>/_CLAUDE.md` first — see "Vault" in the worklog `CLAUDE.md`.
 
 ## Add Mode
 
@@ -21,23 +21,30 @@ Two modes: **add** (default) → append an entry. **recap** → summarize past e
 |-------|-------|
 | What | What was done, in the user's words |
 | Type | `done` (default), `wip`, `blocked`, `todo` |
-| Project | Reuse an existing `#project/<name>` — grep `<JOURNAL>/` for tags before inventing one |
+| Project | Match an existing note in `<VAULT>/wiki/projects/` (check `<VAULT>/index.md`) before creating one |
 | Links | PR / ticket / doc URLs, if given |
 
 If the user says "from git" or gives no content, offer to draft entries from `git log --since=midnight --author="$(git config user.name)"` in the current repo, and confirm before writing.
 
 ### 2. Append
 
-Open `<JOURNAL>/<YYYY-MM-DD>.md` (create with the template in `CLAUDE.md` if missing). Append under `## Work log`:
+Open `<VAULT>/wiki/daily/<YYYY-MM-DD>.md` (create it from `<VAULT>/templates/daily.md` if missing, replacing every `{{date:...}}` placeholder). Append under `## Work log`:
 
 ```markdown
-- HH:MM ✅ <what> #project/<name> ([PR](url))
-- HH:MM 🚧 <what> #project/<name>
-- HH:MM ⛔ blocked: <what> — waiting on [[<person>]]
-- [ ] <todo> #project/<name>
+- HH:MM ✅ <what> [[<Project>]] ([PR](url))
+- HH:MM 🚧 <what> [[<Project>]]
+- HH:MM ⛔ blocked: <what> — waiting on [[<Person>]]
 ```
 
-Todos use Obsidian checkboxes so they can be ticked on the phone.
+Todos go under `## Tasks` as Obsidian checkboxes, so they can be ticked on the phone:
+
+```markdown
+- [ ] <todo> [[<Project>]]
+```
+
+A decision goes under `## Decisions` and is also appended, dated, to the project's `## Key Decisions` (propagation rule).
+
+If a session is big enough to need its own note (several steps, a root cause, commands worth keeping), write `<VAULT>/wiki/logs/<YYYY-MM-DD> - <Description>.md` with `type: devlog`, link it from the daily line, and add it to the project's `## Recent Activity`.
 
 ### 3. Confirm
 
@@ -53,9 +60,9 @@ Triggered by "standup", "recap", "hôm qua", "tuần này", "this week", "/log r
 | Day | one date | Grouped by project |
 | Week | last 7 days (default) | Per project: done, still open, blockers; plus unchecked todos older than 3 days |
 
-Read only the `## Work log` sections. Group by `#project/` tag; untagged entries go under "Other".
+Read the `## Work log`, `## Decisions`, and `## Tasks` sections. Group by `[[Project]]` link; unlinked entries go under "Other".
 
-Print the recap in chat. Save it only if asked — then write to `<JOURNAL>/recaps/<YYYY>-W<ww>.md` with frontmatter `tags: [recap]`.
+Print the recap in chat. Save it only if asked: write `<VAULT>/wiki/reviews/<YYYY>-W<ww>.md` with `type: review` frontmatter and the preamble, add it to `<VAULT>/index.md`, and append to `<VAULT>/log.md`.
 
 ## Rules
 

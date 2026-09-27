@@ -23,74 +23,44 @@ Unlike a generic assistant, this learner **accumulates knowledge about you** —
 RECALL → TEACH → REINFORCE → repeat
 ```
 
-1. **RECALL** — read `<MEM>/_index.md`, load prior concept notes and progress
+1. **RECALL** — read `<VAULT>/index.md`, load the concept's note and its quiz history
 2. **TEACH** — explain the concept, adapt depth to what you already know
-3. **REINFORCE** — quiz, score, write findings back to `<MEM>/`
+3. **REINFORCE** — quiz, score, write findings back to the vault
 
-## Storage Location (resolve FIRST)
+## Vault (resolve FIRST)
 
-Notes live in an Obsidian vault so they sync across devices. Resolve paths before any read/write:
+Notes live in an Obsidian vault laid out as a second-brain LLM wiki. Resolve it before any read or write:
 
 ```bash
 echo "${NOTES_DIR:-}"
 ```
 
-| `NOTES_DIR` | `<MEM>` | `<JOURNAL>` |
-|---|---|---|
-| set | `$NOTES_DIR/learning` | `$NOTES_DIR/journal` |
-| empty | `lt-memory` (this skill dir) | `lt-memory/journal` |
+If it is empty, stop: ask the user to set `NOTES_DIR` to their vault path in `~/.claude/settings.json` (`{ "env": { "NOTES_DIR": "/Users/<you>/notes" } }`) and restart Claude Code. Never write notes into this skill folder.
 
-Create missing directories on first write. Always use absolute paths once resolved.
+`<VAULT>` = `$NOTES_DIR`.
+
+Then read `<VAULT>/_CLAUDE.md`. **It is authoritative** for folders, naming, frontmatter, the AI-first rules, and propagation. If anything below disagrees with it, the vault wins.
+
+| What | Where |
+|---|---|
+| Catalog (read first) | `<VAULT>/index.md` |
+| Concept notes | `<VAULT>/wiki/concepts/<Concept Title>.md` |
+| Tools, libraries studied | `<VAULT>/wiki/entities/<Name>.md` |
+| Study materials | `<VAULT>/wiki/concepts/<Concept Title> - <Format>.md` |
+| Quiz progress | concept note frontmatter (`last_studied`, `last_quizzed`, `quiz_avg`) + its `## Quiz History` section |
+| Daily note | `<VAULT>/wiki/daily/<YYYY-MM-DD>.md`, section `## Learned` |
+| Operation log | `<VAULT>/log.md` |
 
 ## Progressive Disclosure
 
 | Level | What | When to Load |
 |-------|------|--------------|
 | **0** | This file | Always |
-| **1** | `<MEM>/_index.md` | Before every session |
-| **2** | `<MEM>/concepts/<concept>.md` | When studying or quizzing a specific concept |
-| **3** | `<MEM>/progress/<concept>-progress.md` | Before a quiz to tailor difficulty |
-
-## Memory Structure
-
-```
-<MEM>/
-├── _index.md                       ← Catalog of all studied concepts (read FIRST)
-├── concepts/<concept>.md           ← Notes and breakdowns per concept
-├── progress/<concept>-progress.md  ← Quiz scores and retention levels per concept
-└── materials/<concept>/            ← Generated notes, flashcards, cheat sheets
-<JOURNAL>/<YYYY-MM-DD>.md           ← Daily note (shared with the worklog skill)
-```
-
-**Rule:** `concepts/` = what was taught. `progress/` = how well it was retained. Never mix them.
-
-## Obsidian Conventions
-
-- `<concept>` file names: lowercase, hyphenated (`paged-attention.md`). Must be unique across the vault — that is what `[[concept]]` resolves to.
-- Link concepts with `[[wikilinks]]` (`[[vllm]]`, `[[kv-cache|KV cache]]`), never with file paths.
-- Every concept file starts with frontmatter:
-  ```yaml
-  ---
-  tags: [concept]
-  created: YYYY-MM-DD
-  updated: YYYY-MM-DD
-  ---
-  ```
-- Daily note format and append rules: see `.claude/skills/note/SKILL.md`.
-- Never read or write anything under `.obsidian/` — that is the app's config.
-- Append or edit in place; never overwrite a file the user may have edited in Obsidian.
+| **1** | `<VAULT>/_CLAUDE.md` + `<VAULT>/index.md` | Before every session |
+| **2** | The concept's note | When studying or quizzing a specific concept |
 
 ## Pitfalls
 
 - Always load prior concept notes before starting a study session — avoid re-explaining things already mastered
 - Never fabricate quiz answers as correct — if uncertain, mark as "needs review"
 - Adapt explanation depth to the user's background; ask if unknown
-
-## Progress Tracking
-
-| Timeframe | Where |
-|-----------|-------|
-| **Day by day** | `<JOURNAL>/` |
-| **Concepts studied** | `<MEM>/concepts/` |
-| **Retention scores** | `<MEM>/progress/` |
-| **Index** | `<MEM>/_index.md` |

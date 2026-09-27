@@ -10,11 +10,11 @@ description: >
 
 Spaced repetition quiz: load history → select questions → grade → save scores.
 
-> **Paths:** resolve `<MEM>` and `<JOURNAL>` from `NOTES_DIR` first — see "Storage Location" in the concept-learner `CLAUDE.md`.
+> **Vault:** resolve `<VAULT>` and read `<VAULT>/_CLAUDE.md` first; it is authoritative for folders, naming, frontmatter, and writing rules. See "Vault" in the concept-learner `CLAUDE.md`.
 
 ## Phase 0 — Load History
 
-Read `<MEM>/progress/<concept>-progress.md` to determine:
+Find the concept's note via `<VAULT>/index.md` and read its `last_quizzed` / `quiz_avg` frontmatter and `## Quiz History` section to determine:
 - What has been quizzed before
 - Which areas scored low (< 70%) — prioritize these
 - When last quizzed — flag if overdue (> 7 days)
@@ -56,33 +56,23 @@ Give brief feedback after each answer:
 
 ## Phase 3 — Save Progress
 
-Write to `<MEM>/progress/<concept>-progress.md`:
+In the concept's note:
+
+1. Set frontmatter `last_quizzed: <YYYY-MM-DD>` and `quiz_avg: X.X` (a snapshot, dated by `last_quizzed`).
+2. Append a dated entry to `## Quiz History` at the end of the note (create the section if missing). Entries are snapshots; never rewrite old ones:
 
 ```markdown
----
-tags: [progress]
-concept: "[[<concept>]]"
----
-# <Concept> — Progress
-
-## Sessions
+## Quiz History
 
 ### <YYYY-MM-DD>
-- Questions asked: N
-- Average score: X.X / 5
-- Weak areas: [list topics that scored ≤ 2]
-- Strong areas: [list topics that scored ≥ 4]
-
-## Retention Summary
-| Topic | Last Score | Last Quizzed |
-|-------|-----------|--------------|
-| ...   | ...       | ...          |
+- Questions: N · Average: X.X / 5
+- Weak: [topics scored ≤ 2]
+- Strong: [topics scored ≥ 4]
 ```
 
-Update `<MEM>/_index.md` with latest quiz date and average score.
-
-Append under `## Learned` in today's daily note (`<JOURNAL>/<YYYY-MM-DD>.md`):
-`- HH:MM /quiz [[<concept>]] — X.X/5, weak: <topics>`
+Then propagate:
+- today's daily note `<VAULT>/wiki/daily/<YYYY-MM-DD>.md`, under `## Learned`: `- HH:MM /quiz [[<Concept Title>]] — X.X/5, weak: <topics>`
+- `<VAULT>/log.md`: `## [<YYYY-MM-DD>] quiz | <Concept Title> X.X/5`
 
 ## Rules
 

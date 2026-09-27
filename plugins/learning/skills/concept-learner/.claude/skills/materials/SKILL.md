@@ -11,7 +11,7 @@ description: >
 
 Generate study artifacts for a concept on demand.
 
-> **Paths:** resolve `<MEM>` and `<JOURNAL>` from `NOTES_DIR` first — see "Storage Location" in the concept-learner `CLAUDE.md`.
+> **Vault:** resolve `<VAULT>` and read `<VAULT>/_CLAUDE.md` first; it is authoritative for folders, naming, frontmatter, and writing rules. See "Vault" in the concept-learner `CLAUDE.md`.
 
 ## Phase 0 — Clarify
 
@@ -23,7 +23,7 @@ Before generating, ask only what's missing:
 | Format | Notes, summary, flashcards, reference sheet |
 | Depth | Beginner overview, intermediate, advanced |
 
-Load `<MEM>/concepts/<concept>.md` if available — use existing notes as the source of truth.
+Load the concept's note (via `<VAULT>/index.md`) if available — use it as the source of truth.
 
 ## Formats
 
@@ -67,14 +67,14 @@ Quick-lookup format:
 
 ## Output
 
-Save to `<MEM>/materials/<concept>/<format>-<YYYY-MM-DD>.md`.
+Save to `<VAULT>/wiki/concepts/<Concept Title> - <Format>.md` (e.g. `vLLM - Flashcards.md`). If it exists, add new cards or sections rather than overwriting.
 
-Start the file with frontmatter `tags: [materials]` and a link back: `Source: [[<concept>]]`.
+Frontmatter: `date`, `type: material`, `tags: [material, <format>]`, `ai-first: true`, `sources: ["[[<Concept Title>]]"]`, then the `## For future agent` preamble.
 
-Update `<MEM>/_index.md` with a pointer to the generated file (as a `[[wikilink]]`).
+Link it from the concept note, add it to `<VAULT>/index.md`, and append `## [<YYYY-MM-DD>] create | <file name>` to `<VAULT>/log.md`.
 
 ## Rules
 
-- Ground every claim in `<MEM>/concepts/<concept>.md` if it exists — don't contradict prior study notes
+- Ground every claim in the concept's note if it exists — don't contradict prior study notes
 - Flag anything uncertain rather than fabricating
 - Keep flashcard answers concise — one clear fact per card

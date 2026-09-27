@@ -11,7 +11,7 @@ description: >
 
 Structured guided session: orient → layer → check → save.
 
-> **Paths:** resolve `<MEM>` and `<JOURNAL>` from `NOTES_DIR` first — see "Storage Location" in the concept-learner `CLAUDE.md`.
+> **Vault:** resolve `<VAULT>` and read `<VAULT>/_CLAUDE.md` first; it is authoritative for folders, naming, frontmatter, and writing rules. See "Vault" in the concept-learner `CLAUDE.md`.
 
 ## Phase 0 — Orient
 
@@ -23,7 +23,7 @@ Before explaining anything, clarify:
 | User's background | What do they already know? |
 | Goal | Broad understanding, practical use, or exam prep? |
 
-Load `<MEM>/concepts/<concept>.md` if it exists — skip what's already covered.
+Find the concept's note via `<VAULT>/index.md` (`wiki/concepts/` or, for tools and libraries, `wiki/entities/`). If it exists, load it and skip what's already covered.
 
 ## Phase 1 — Lay the Foundation
 
@@ -60,15 +60,24 @@ What the basics don't cover:
 
 ## Phase 5 — Save to Memory
 
-Write to `<MEM>/concepts/<concept>.md`:
+Write to `<VAULT>/wiki/concepts/<Concept Title>.md` (tools and libraries go to `wiki/entities/` with their entity `type`):
 
 ```markdown
 ---
-tags: [concept]
-created: <YYYY-MM-DD>
+date: <YYYY-MM-DD>
 updated: <YYYY-MM-DD>
+type: concept
+tags: [concept]
+ai-first: true
+status: active
+confidence: medium
+sources: []
+last_studied: <YYYY-MM-DD>
 ---
-# <Concept>
+# <Concept Title>
+
+## For future agent
+<2-3 sentences: what this note covers, that it came from a /study session on <date>, any staleness caveat.>
 
 ## Summary
 <2–3 sentence plain-language summary>
@@ -83,15 +92,15 @@ updated: <YYYY-MM-DD>
 <what needed extra explanation>
 
 ## Connected Concepts
-- [[related-concept]] — how it relates
+- [[Related Concept]] — how it relates
 ```
 
-If the file already exists, merge into it (keep the user's own edits) and bump `updated`.
+If the note already exists, merge into it, bump `updated` and `last_studied`, and never touch `<!-- @user -->` blocks. Create stubs for linked concepts that don't exist yet.
 
-Update `<MEM>/_index.md` with the concept entry.
-
-Append one line under `## Learned` in today's daily note (`<JOURNAL>/<YYYY-MM-DD>.md`, format in `note/SKILL.md`):
-`- HH:MM /study [[<concept>]] — <one-line takeaway>`
+Then propagate (vault `_CLAUDE.md` Section 5):
+- `<VAULT>/index.md`: add or refresh the one-line entry
+- today's daily note `<VAULT>/wiki/daily/<YYYY-MM-DD>.md`, under `## Learned`: `- HH:MM /study [[<Concept Title>]] — <one-line takeaway>`
+- `<VAULT>/log.md`: `## [<YYYY-MM-DD>] study | <Concept Title>`
 
 ## Rules
 
