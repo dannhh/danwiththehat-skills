@@ -58,10 +58,10 @@ Notes, progress, and logs belong to the user, not to the plugin.
 
 | Variable | Used by | Points to |
 |---|---|---|
-| `NOTES_DIR` | `learning`, `productivity` | Obsidian vault (`~/notes`): `learning/` + `journal/YYYY-MM-DD.md` |
+| `NOTES_DIR` | `learning`, `productivity` | Obsidian vault (`~/notes`), second-brain wiki layout; its own `CLAUDE.md` is the schema |
 
-- New skills that store data must read a location from an env var, falling back to a local `lt-memory/` only when it is unset.
-- Write Obsidian-friendly Markdown: frontmatter, `[[wikilinks]]`, append-only daily notes. Never touch `.obsidian/`.
+- New skills that store data must read the location from an env var and stop with setup instructions when it is unset. Never write user data into the repo.
+- Vault conventions (folders, frontmatter, naming, AI-first rules) live in `$NOTES_DIR/_CLAUDE.md`, not in the skills. Skills point to it instead of restating it.
 
 ## Writing skills
 

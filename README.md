@@ -33,9 +33,9 @@ Because "what did you do yesterday?" should not require archaeology.
 
 ```markdown
 ## Work log
-- 09:40 ✅ Ship retry logic for webhook sender #project/payments
+- 09:40 ✅ Ship retry logic for webhook sender [[Webhook Retry]]
 - 14:10 ⛔ blocked: staging migration, waiting on [[teammate]]
-- [ ] Write rollout note #project/payments
+- [ ] Write rollout note [[Webhook Retry]]
 ```
 
 - `/log fixed the flaky export test` adds a line to today's note
@@ -89,7 +89,7 @@ Heads up: the skills sit in nested `.claude/skills/` folders, so `/plugin instal
 
 ## Where the notes go
 
-The student and logbook hats write into one Obsidian vault, one daily note per day.
+The student and logbook hats write into one Obsidian vault, laid out as an LLM wiki: I read and jot, Claude files and links. The layout follows [obsidian-second-brain](https://github.com/eugeniughelbur/obsidian-second-brain) and [Karpathy's LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f).
 
 ```mermaid
 flowchart LR
@@ -102,13 +102,20 @@ flowchart LR
 
 ```
 ~/notes/
-├── journal/2026-09-26.md       ← ## Learned + ## Work log
-└── learning/
-    ├── _index.md               ← every topic, last studied, quiz average
-    ├── concepts/<topic>.md     ← linked with [[wikilinks]], so the graph view grows
-    ├── progress/<topic>-progress.md
-    └── materials/<topic>/
+├── _CLAUDE.md         ← the vault's rulebook; every skill defers to it
+├── CLAUDE.md          ← one line, `@_CLAUDE.md`, so Claude Code loads it
+├── index.md           ← one line per note, read first
+├── log.md             ← append-only history of what Claude did
+├── raw/               ← sources I clip; never edited
+└── wiki/
+    ├── daily/         ← one note a day: work log, learned, decisions, tasks
+    ├── concepts/      ← things I learned, with quiz history
+    ├── entities/      ← tools, libraries, people
+    ├── projects/      ← context and key decisions
+    ├── logs/  reviews/  decisions/
 ```
+
+Daily notes are the inbox. Once a week, Claude promotes what lasts (lessons, decisions, tools) into the wiki and leaves tasks where they are.
 
 **Setup, once:**
 
@@ -119,7 +126,7 @@ flowchart LR
 2. Obsidian → **Open folder as vault** → `~/notes`, and turn on **Sync** (iCloud or git work too).
 3. Nice to have: the **Spaced Repetition** and **Dataview** community plugins.
 
-No `NOTES_DIR`? Notes stay in a local `lt-memory/` inside the skill folder.
+No `NOTES_DIR`? The skills stop and ask for it rather than writing notes into the repo.
 
 ## Sewing a new hat
 
