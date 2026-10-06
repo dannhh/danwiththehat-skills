@@ -43,12 +43,12 @@ Adapted from the Google Markdown style guide (CC BY 3.0), changed for GitHub/Obs
 
 ### Syntax
 
- 1. **Lists:** `-` for bullets, 2-space nesting (match the corpus if it uses another consistent style). Numbered lists for steps; lazy `1.` numbering for long lists that change.
- 2. **Code:** inline backticks for names, paths, commands and fake URLs; fenced blocks with a language (`bash`, `python`, `toml`, `text`), never indented blocks; escape long shell lines with `\`.
- 3. **Links:** descriptive text (`[blend formula](validation.md#blend-formula)`), never "here" or a bare URL in prose; relative paths within the repo; reference links for long URLs and in tables, defined at the end of the section of first use.
- 4. **No hard wrapping** of prose: one bullet or sentence group per line; GitHub and Obsidian soft-wrap. Keep lines short by writing short bullets. (A repo that already wraps at 80 keeps wrapping.)
- 5. **No trailing whitespace**; no HTML unless Markdown cannot do it (GitHub alerts `> [!NOTE]` / `> [!IMPORTANT]` are fine).
- 6. **Images** only when showing beats telling, always with alt text.
+- **Lists:** `-` for bullets, 2-space nesting (match the corpus if it uses another consistent style). Numbered lists for steps; lazy `1.` numbering for long lists that change.
+- **Code:** inline backticks for names, paths, commands and fake URLs; fenced blocks with a language (`bash`, `python`, `toml`, `text`), never indented blocks; escape long shell lines with `\`.
+- **Links:** descriptive text (`[blend formula](validation.md#blend-formula)`), never "here" or a bare URL in prose; relative paths within the repo; reference links for long URLs and in tables, defined at the end of the section of first use.
+- **No hard wrapping** of prose: one bullet or sentence group per line; GitHub and Obsidian soft-wrap. Keep lines short by writing short bullets. (A repo that already wraps at 80 keeps wrapping.)
+- **No trailing whitespace**; no HTML unless Markdown cannot do it (GitHub alerts `> [!NOTE]` / `> [!IMPORTANT]` are fine).
+- **Images** only when showing beats telling, always with alt text.
 
 ## Instructions
 

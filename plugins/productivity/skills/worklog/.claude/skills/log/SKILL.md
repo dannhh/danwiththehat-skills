@@ -44,7 +44,11 @@ Todos go under `## Tasks` as Obsidian checkboxes, so they can be ticked on the p
 
 A decision goes under `## Decisions` and is also appended, dated, to the project's `## Key Decisions` (propagation rule).
 
-If a session is big enough to need its own note (several steps, a root cause, commands worth keeping), write `<VAULT>/wiki/logs/<YYYY-MM-DD> - <Description>.md` with `type: devlog`, link it from the daily line, and add it to the project's `## Recent Activity`.
+If a session is big enough to need its own note (several steps, a root cause, commands worth keeping):
+
+- write `<VAULT>/wiki/logs/<YYYY-MM-DD> - <Description>.md` with `type: devlog`
+- link it from the daily line
+- add it to the project's `## Recent Activity`
 
 ### 3. Confirm
 
@@ -62,7 +66,11 @@ Triggered by "standup", "recap", "hôm qua", "tuần này", "this week", "/log r
 
 Read the `## Work log`, `## Decisions`, and `## Tasks` sections. Group by `[[Project]]` link; unlinked entries go under "Other".
 
-Print the recap in chat. Save it only if asked: write `<VAULT>/wiki/reviews/<YYYY>-W<ww>.md` with `type: review` frontmatter and the preamble, add it to `<VAULT>/index.md`, and append to `<VAULT>/log.md`.
+Print the recap in chat. Save it only if asked:
+
+- write `<VAULT>/wiki/reviews/<YYYY>-W<ww>.md` with `type: review` frontmatter and the preamble
+- add it to `<VAULT>/index.md`
+- append to `<VAULT>/log.md`
 
 ## Rules
 
