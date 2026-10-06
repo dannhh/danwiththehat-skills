@@ -19,7 +19,7 @@ Build up knowledge about what data exists, what metrics mean, and how things con
 
 Read your memory before writing any SQL.
 
-```
+```text
 1. Read lt-memory/_index.md
 2. Find the relevant domain file in lt-memory/domains/<domain>.md
    → Contains table schemas, column definitions, learned memory entries
@@ -48,10 +48,12 @@ For broad executive questions, you'll need to write **separate SQL queries again
 
 Before writing SQL, you MUST know the table structure.
 
-**Source A: lt-memory domain files (primary)**
+#### Source A: lt-memory domain files (primary)
+
 Check `lt-memory/domains/<domain>.md` — contains parsed table schemas with column names, types, and descriptions.
 
-**Source B: BigQuery INFORMATION_SCHEMA (fallback)**
+#### Source B: BigQuery INFORMATION_SCHEMA (fallback)
+
 ```sql
 SELECT column_name, data_type
 FROM `project.dataset.INFORMATION_SCHEMA.COLUMNS`
@@ -60,12 +62,14 @@ ORDER BY ordinal_position
 ```
 
 **If schema is unclear:**
+
 - Try `SELECT * FROM <table> LIMIT 5` to see column names and sample data
 - Record what you find in `lt-memory/knowledge/<domain>.md`
 
 ### Step 3: Write the SQL
 
 Write SQL that:
+
 - **Only uses verified column names** — from domain files or schema discovery
 - **Includes explicit time filters** — always filter by date/month column
 - **Uses aggregation appropriately** — COUNT, SUM, AVG, COUNT(DISTINCT ...)
@@ -171,7 +175,7 @@ When you need to derive metrics from returned results (averages, percentiles, we
 
 Format each query result as:
 
-```
+```markdown
 **SQL:**
 ​```sql
 SELECT ...
@@ -186,6 +190,7 @@ WHERE ...
 ```
 
 Then interpret in business context:
+
 - State numbers with meaning: "Product X crossed 1M MAU in March, up 45% YoY"
 - Flag anything suspicious (zero values, negative numbers, missing data)
 - Compare against known baselines from knowledge files
@@ -217,7 +222,8 @@ When a question needs 5+ queries across different tables, **execute all in paral
 ### On success → write a pattern
 
 Create `lt-memory/patterns/YYYY-MM-DD_<slug>.md`:
-```
+
+```markdown
 # Pattern: <what this query answers>
 ## Table
 <table name and dataset>
@@ -232,6 +238,7 @@ Create `lt-memory/patterns/YYYY-MM-DD_<slug>.md`:
 ### On failure or discovery → save to knowledge
 
 Save corrections and gotchas to `lt-memory/knowledge/<domain>.md`:
+
 ```markdown
 ### <Title> (YYYY-MM-DD)
 <What was wrong> → <What is correct>
@@ -251,14 +258,17 @@ Add a row to `lt-memory/_index.md` so future sessions can find it.
 Detect correction signals automatically from user messages:
 
 **Explicit corrections:**
+
 - "wrong", "should be X not Y", "fix it", "that's not right"
 - "use column X instead", "the correct value is..."
 
 **Implicit corrections:**
+
 - User shares a different number than your result → they may have the right answer
 - User re-asks the same question differently → your first answer was wrong/incomplete
 
 **On detection:**
+
 1. Acknowledge: "Got it, updating my knowledge."
 2. Extract: which table, column? What's correct? Why was the old answer wrong?
 3. Save to `lt-memory/knowledge/<domain>.md`
@@ -294,7 +304,7 @@ Executives don't read long terminal outputs.
 
 For any substantial analysis (multi-table, multi-query), create a working folder:
 
-```
+```text
 data/output/{short_desc}_{YYYY-MM-DD_HHmm}/
 ├── 01_query_results.md    ← All raw SQL results (tables, numbers)
 ├── 02_insights.md         ← Extracted insights (read 01 first!)
@@ -305,6 +315,7 @@ data/output/{short_desc}_{YYYY-MM-DD_HHmm}/
 **Anti-lost-in-middle rule:** For large tasks, NEVER rely on context memory for intermediate results. The context window can exceed 100K tokens — data in the middle gets forgotten.
 
 **Mandatory workflow for large analyses:**
+
 1. Run all queries → save ALL results to `01_query_results.md`
 2. **Re-read** `01_query_results.md` from disk → extract insights → save to `02_insights.md`
 3. **Re-read** `02_insights.md` from disk → build SPA → save to `03_dashboard.html`
@@ -314,12 +325,14 @@ Each step reads the previous file fresh. Never skip the re-read.
 ### 2. Always save research to `docs/research/`
 
 After completing any substantial analysis:
+
 - Save as `docs/research/YYYY-MM-DD-<slug>.md`
 - Include: date, data sources, executive summary, data tables, insights, recommendations
 
 ### 3. Offer an SPA dashboard for complex reports
 
 When a report has 3+ data dimensions, charts, or tables:
+
 - Automatically offer to create an interactive SPA (single HTML file with Chart.js)
 - Save to `data/output/<slug>/03_dashboard.html`
 - Automatically open in browser (`open <path>`)

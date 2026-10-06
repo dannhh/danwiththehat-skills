@@ -90,29 +90,38 @@ If result is large: write a Python script to aggregate to `return_grain`, run it
 Always return BOTH the SQL query and the data.
 
 On success:
+
 ## RESULT — [Table/Domain Name]
+
 **SQL:**
+
 ```sql
 SELECT ...
 FROM ...
 WHERE ...
 ```
+
 **Dry-run:** X.XX GB | **Runtime:** Xs
 
 **Data:**
+
 | col1 | col2 | col3 |
 |------|------|------|
 | val  | val  | val  |
 
 On failure:
+
 ## ERROR — [Table/Domain Name]
+
 **SQL:** (exact query)
 **Dry-run:** X.XX GB
 **Error:** (exact BQ message)
 **Fix tried:** (what changed)
 
 On timeout:
+
 ## TIMEOUT — [Table/Domain Name]
+
 **SQL:** (exact query)
 **Dry-run:** X.XX GB | **Ran for:** Ns, cancelled
 **Suggestion:** narrow date range or add partition filter

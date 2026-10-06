@@ -20,7 +20,7 @@ The DA decomposes these into specific SQL queries, executes them, and presents a
 
 ## How This Works
 
-```
+```text
 RECALL → EXPLORE → LEARN → repeat
 ```
 
@@ -41,7 +41,7 @@ Load only what you need, when you need it.
 
 ## lt-memory Structure
 
-```
+```text
 lt-memory/
 ├── _index.md         ← Catalog of everything learned (read FIRST)
 ├── domains/          ← Table schemas (auto-refreshed, NEVER edit)
@@ -73,6 +73,7 @@ Configure `YOUR_PROJECT` and data project in `lt-memory/knowledge/_general.md`.
 ## Pitfalls
 
 Read before writing SQL:
+
 - `lt-memory/knowledge/_general.md` — BQ access, SQL gotchas
 - `lt-memory/knowledge/<domain>.md` — per-table gotchas
 - `lt-memory/errors/` — access issues, blocked datasets

@@ -17,11 +17,13 @@ Guidelines for writing high-quality, effective skills for AI coding agents.
 The `description` is what the AI reads first to decide if a skill is relevant. Write it from the agent's perspective.
 
 **Good (short — single line):**
+
 ```yaml
 description: Use this skill when the user asks to cherry-pick a Gerrit patchset by URL or Change ID.
 ```
 
 **Good (long — use `|` block scalar, preferred for multiline):**
+
 ```yaml
 description: |
   Debug a failing CI pipeline and surface the root cause.
@@ -31,11 +33,13 @@ description: |
 ```
 
 **Bad:**
+
 ```yaml
 description: Gerrit stuff
 ```
 
 Rules:
+
 - Start with **"Use this skill when..."** or **"Teaches the agent to..."**
 - Be specific about **triggers** and **inputs**
 - Keep it under 2 sentences (or use `|` block scalar for longer descriptions)
@@ -82,6 +86,7 @@ Load heavy context only when needed. Avoid embedding large blocks of data direct
 | Lookup data, fixtures | `assets/data.json` |
 
 Reference them in `SKILL.md` with relative paths:
+
 ```markdown
 See [reference guide](references/REFERENCE.md) for the full list.
 Run the helper: `scripts/run.sh`
@@ -100,6 +105,7 @@ See [CLAUDE.md](CLAUDE.md) for the canonical layout and plugin creation steps.
 ## 6. Tags (metadata)
 
 Use `metadata.tags` for discoverability. Tags should reflect:
+
 - **Technology**: `git`, `go`, `react`, `kafka`
 - **Domain**: `backend`, `frontend`, `devops`
 - **Context**: `gerrit`, `jira`, `k8s`
@@ -126,4 +132,3 @@ metadata:
 - [ ] Placed at `plugins/<name>/skills/<workspace>/.claude/skills/<command>/SKILL.md`
 - [ ] `plugins/<name>/.claude-plugin/plugin.json` exists for the plugin to be indexed
 - [ ] Optional: verify locally with `python3 scripts/build.py && bash scripts/test-integration.sh`
-

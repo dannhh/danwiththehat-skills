@@ -98,6 +98,7 @@ last_studied: <YYYY-MM-DD>
 If the note already exists, merge into it, bump `updated` and `last_studied`, and never touch `<!-- @user -->` blocks. Create stubs for linked concepts that don't exist yet.
 
 Then propagate (vault `_CLAUDE.md` Section 5):
+
 - `<VAULT>/index.md`: add or refresh the one-line entry
 - today's daily note `<VAULT>/wiki/daily/<YYYY-MM-DD>.md`, under `## Learned`: `- HH:MM /study [[<Concept Title>]] — <one-line takeaway>`
 - `<VAULT>/log.md`: `## [<YYYY-MM-DD>] study | <Concept Title>`

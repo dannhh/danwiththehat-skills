@@ -1,6 +1,7 @@
 # Deep Analyze — Framework Reference
 
 ## Table of Contents
+
 1. [Success Metric Selection Guide](#1-success-metric-selection-guide)
 2. [Dimension Discovery Patterns](#2-dimension-discovery-patterns)
 3. [SQL Patterns by Phase](#3-sql-patterns-by-phase)
@@ -34,6 +35,7 @@
 ### Discovering available user dimensions
 
 If unsure which user dimensions exist, query:
+
 ```sql
 SELECT column_name, data_type
 FROM `<project>.<dataset>.INFORMATION_SCHEMA.COLUMNS`
@@ -44,11 +46,13 @@ ORDER BY column_name
 ### Common user dimension SQL patterns
 
 **New vs returning:**
+
 ```sql
 IF(user_first_seen_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY), 'new', 'returning')
 ```
 
 **Activity level buckets (example thresholds — adjust to your domain):**
+
 ```sql
 CASE
   WHEN txn_count_30d >= 10 THEN 'power'
@@ -58,6 +62,7 @@ END AS activity_level
 ```
 
 **Tenure cohort:**
+
 ```sql
 DATE_DIFF(event_date, user_first_seen_date, DAY) AS user_age_days,
 CASE
@@ -154,7 +159,7 @@ ORDER BY variant, position
 
 ### Recommendation format
 
-```
+```markdown
 **[Action verb] [specific action]**
 → Expected impact: [metric] improves by [estimated magnitude]
 · Evidence: [Phase N finding, segment, numbers]

@@ -19,7 +19,7 @@ Unlike a generic assistant, this learner **accumulates knowledge about you** —
 
 ## How This Works
 
-```
+```text
 RECALL → TEACH → REINFORCE → repeat
 ```
 

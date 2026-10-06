@@ -12,7 +12,7 @@ description: >
 
 **Core principle**: Tests should verify behavior through public interfaces, not implementation details. Code can change entirely; tests shouldn't.
 
-**Good tests** are integration-style: they exercise real code paths through public APIs. They describe _what_ the system does, not _how_ it does it. A good test reads like a specification — "user can checkout with valid cart" tells you exactly what capability exists. These tests survive refactors because they don't care about internal structure.
+**Good tests** are integration-style: they exercise real code paths through public APIs. They describe *what* the system does, not *how* it does it. A good test reads like a specification — "user can checkout with valid cart" tells you exactly what capability exists. These tests survive refactors because they don't care about internal structure.
 
 **Bad tests** are coupled to implementation. They mock internal collaborators, test private methods, or verify through external means (like querying a database directly instead of using the interface). The warning sign: your test breaks when you refactor, but behavior hasn't changed. If you rename an internal function and tests fail, those tests were testing implementation, not behavior.
 
@@ -24,14 +24,14 @@ See [tests.md](references/tests.md) for examples and [mocking.md](references/moc
 
 This produces **crap tests**:
 
-- Tests written in bulk test _imagined_ behavior, not _actual_ behavior
-- You end up testing the _shape_ of things (data structures, function signatures) rather than user-facing behavior
+- Tests written in bulk test *imagined* behavior, not *actual* behavior
+- You end up testing the *shape* of things (data structures, function signatures) rather than user-facing behavior
 - Tests become insensitive to real changes — they pass when behavior breaks, fail when behavior is fine
 - You outrun your headlights, committing to test structure before understanding the implementation
 
 **Correct approach**: Vertical slices via tracer bullets. One test → one implementation → repeat. Each test responds to what you learned from the previous cycle.
 
-```
+```text
 WRONG (horizontal):
   RED:   test1, test2, test3, test4, test5
   GREEN: impl1, impl2, impl3, impl4, impl5
@@ -66,7 +66,7 @@ Ask: "What should the public interface look like? Which behaviors are most impor
 
 Write ONE test that confirms ONE thing about the system:
 
-```
+```text
 RED:   Write test for first behavior → test fails
 GREEN: Write minimal code to pass → test passes
 ```
@@ -77,7 +77,7 @@ This is your tracer bullet — proves the path works end-to-end.
 
 For each remaining behavior:
 
-```
+```text
 RED:   Write next test → fails
 GREEN: Minimal code to pass → passes
 ```
@@ -103,7 +103,7 @@ After all tests pass, look for [refactor candidates](references/refactoring.md):
 
 ## Checklist Per Cycle
 
-```
+```text
 [ ] Test describes behavior, not implementation
 [ ] Test uses public interface only
 [ ] Test would survive internal refactor

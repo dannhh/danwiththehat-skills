@@ -17,18 +17,22 @@ export PATH="/path/to/google-cloud-sdk/bin:$PATH"
 ```
 
 **Configure your projects:**
-- Job/billing project: _(set per workspace)_
-- Data project: _(varies — specify per query)_
+
+- Job/billing project: *(set per workspace)*
+- Data project: *(varies — specify per query)*
 
 ---
 
 ## SQL Gotchas
 
 ### Reserved Words
+
 Always backtick-quote BigQuery reserved words used as column/table names:
+
 - `date`, `time`, `timestamp`, `user`, `type`, `value`, `status`, `month`, `year`
 
 ### Date Filtering
+
 - Always include a date filter — bare table scans on large tables exceed quota fast
 - Use partition columns when available (check domain file)
 - BQ DATE type: `WHERE date_col = '2025-01-15'`
@@ -36,11 +40,13 @@ Always backtick-quote BigQuery reserved words used as column/table names:
 - February: 28 days in non-leap years, 29 in leap years. Never use Feb 29 in non-leap years.
 
 ### Aggregation
+
 - `COUNT(DISTINCT user_id)` for unique user counts — not `COUNT(*)`
 - `SUM(amount)` for totals — verify the column is NOT already pre-aggregated
 - When a table is a daily snapshot (one row per user per day), use `COUNT(DISTINCT user_id)` filtered to the month, not `SUM(user_count)`
 
 ### NULL handling
+
 - `SUM(col)` returns NULL if all values are NULL — use `COALESCE(SUM(col), 0)`
 - `COUNT(col)` ignores NULLs — use `COUNT(*)` to count all rows
 
@@ -52,7 +58,7 @@ Always backtick-quote BigQuery reserved words used as column/table names:
 
 | Dataset | Status | Notes |
 |---------|--------|-------|
-| _(empty — add as you discover)_ | | |
+| *(empty — add as you discover)* | | |
 
 ---
 

@@ -1,6 +1,6 @@
 # danwiththehat-skills
 
-```
+```text
       _____
      |     |
    __|_____|__     one person, many hats.
@@ -102,7 +102,7 @@ flowchart LR
     S --> L["laptop"]
 ```
 
-```
+```text
 ~/notes/
 ├── _CLAUDE.md         ← the vault's rulebook; every skill defers to it
 ├── CLAUDE.md          ← one line, `@_CLAUDE.md`, so Claude Code loads it
@@ -122,9 +122,11 @@ Daily notes are the inbox. Once a week, Claude promotes what lasts (lessons, dec
 **Setup, once:**
 
 1. Tell the skills where the vault is, in `~/.claude/settings.json`, then restart Claude Code:
+
    ```json
    { "env": { "NOTES_DIR": "/Users/<you>/notes" } }
    ```
+
 2. Obsidian → **Open folder as vault** → `~/notes`, and turn on **Sync** (iCloud or git work too).
 3. Nice to have: the **Spaced Repetition** and **Dataview** community plugins.
 
@@ -132,7 +134,7 @@ No `NOTES_DIR`? The skills stop and ask for it rather than writing notes into th
 
 ## Sewing a new hat
 
-```
+```text
 plugins/<plugin>/
 ├── .claude-plugin/plugin.json
 └── skills/<skill>/

@@ -1,0 +1,21 @@
+// Markdown lint config from the markdown-style skill. Run: npx --yes markdownlint-cli2 "**/*.md"
+{
+  "config": {
+    "default": true,
+    "MD003": { "style": "atx" },                     // ATX headings
+    "MD004": { "style": "dash" },                    // "-" bullets
+    "MD007": { "indent": 2 },                        // 2-space nested lists
+    "MD013": false,                                  // no hard wrapping of prose
+    "MD024": { "siblings_only": true },              // unique headings within a parent
+    "MD025": true,                                   // one H1
+    "MD029": { "style": "one_or_ordered" },          // 1. 2. 3. or lazy 1. 1. 1.
+    "MD033": { "allowed_elements": ["details", "summary", "br", "code", "div", "sub"] },  // README fold and centered footer
+    "MD040": true,                                   // fenced code declares a language
+    "MD046": { "style": "fenced" },                  // no indented code blocks
+    "MD049": { "style": "asterisk" },                // *emphasis*
+    "MD050": { "style": "asterisk" },                // **strong**
+    "MD059": true,                                   // descriptive link text, not "here"
+    "MD060": false                                   // table pipe alignment: cosmetic, tools disagree
+  },
+  "ignores": ["node_modules/**", ".venv/**", "**/.obsidian/**", "**/.claude/agents/**"]  // agent prompts use XML-like tags
+}

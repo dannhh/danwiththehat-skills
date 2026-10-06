@@ -14,6 +14,7 @@ Broad questions require multiple queries across multiple tables. The DA's job is
 ## Question Types & Decomposition Patterns
 
 ### Type 1: Product Adoption
+
 **Trigger:** "How is [product] doing?", "What's [product] adoption?", "Is [product] working?"
 
 **6 dimensions to query:**
@@ -28,6 +29,7 @@ Broad questions require multiple queries across multiple tables. The DA's job is
 | **Retention** | Month-over-month returning users | Stickiness |
 
 **Computed metrics** (calculate from raw data, not queried directly):
+
 - DAU/MAU ratio (daily engagement intensity, good = >20%)
 - WAU/MAU ratio (weekly engagement, good = >50%)
 - Activation rate (active/registered, good = >30%)
@@ -36,6 +38,7 @@ Broad questions require multiple queries across multiple tables. The DA's job is
 ---
 
 ### Type 2: Business Health Overview
+
 **Trigger:** "How's the business?", "YoY comparison?", "Business review?"
 
 **Query each BU's primary metric:**
@@ -52,9 +55,11 @@ Broad questions require multiple queries across multiple tables. The DA's job is
 ---
 
 ### Type 3: Revenue Breakdown
+
 **Trigger:** "Revenue by business line?", "Where does money come from?", "Margin structure?"
 
 **Query revenue/value from each revenue-generating area:**
+
 - Revenue by product (monthly, quarterly)
 - Transaction value vs. revenue (to understand take rates)
 - YoY and QoQ comparisons for each line
@@ -64,6 +69,7 @@ Broad questions require multiple queries across multiple tables. The DA's job is
 ---
 
 ### Type 4: Competitive Position
+
 **Trigger:** "Market share?", "How do we compare to competitors?"
 
 **What your data CAN provide:** Your own metrics (volume, users, value)
@@ -74,6 +80,7 @@ Query your metrics first, then supplement with external research via the `deep-r
 ---
 
 ### Type 5: Risk Assessment
+
 **Trigger:** "Default rate?", "What risks?", "Delinquency?", "Fraud rate?"
 
 Query risk-related tables and note any restricted/blocked datasets in `lt-memory/errors/`.
@@ -109,12 +116,14 @@ This is dramatically faster than sequential execution.
 ## Investor Question Framework
 
 Investor questions are hardest because they:
+
 1. Require **multiple metrics across multiple tables**
 2. Demand **computed ratios** (not just raw numbers)
 3. Need **trend analysis** (not just snapshots)
 4. Require **honest interpretation** (not just data dump)
 
 **Framework for any investor question:**
+
 1. Identify the **underlying concern** (growth? profitability? risk? moat?)
 2. Map to **question type** above
 3. Decompose into **6-10 sub-queries**

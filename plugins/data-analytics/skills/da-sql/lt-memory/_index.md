@@ -16,7 +16,7 @@
 
 | Domain / Table | File | Key Tables | Last Updated |
 |----------------|------|------------|--------------|
-| _(empty — add after schema discovery)_ | | | |
+| *(empty — add after schema discovery)* | | | |
 
 ---
 
@@ -36,7 +36,7 @@
 
 | Pattern | File | What it answers |
 |---------|------|----------------|
-| _(empty — add queries that worked)_ | | |
+| *(empty — add queries that worked)* | | |
 
 ---
 
@@ -46,4 +46,4 @@
 
 | Error | File | Description |
 |-------|------|-------------|
-| _(empty — add as you encounter errors)_ | | |
+| *(empty — add as you encounter errors)* | | |

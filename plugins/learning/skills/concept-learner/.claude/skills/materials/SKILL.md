@@ -28,7 +28,9 @@ Load the concept's note (via `<VAULT>/index.md`) if available — use it as the 
 ## Formats
 
 ### Notes
+
 Full structured breakdown:
+
 - Overview
 - Key concepts with explanations
 - Examples
@@ -36,31 +38,39 @@ Full structured breakdown:
 - Further reading
 
 ### Summary
+
 One-page cheat sheet:
+
 - 3-sentence definition
 - Key points as bullets
 - One worked example
 - Key terms glossary
 
 ### Flashcards
+
 Q&A pairs covering:
+
 - Definitions
 - How/why questions
 - Apply-it scenarios
 - Common misconceptions
 
 Format (Obsidian Spaced Repetition plugin — reviewable on phone):
-```
+
+```markdown
 #flashcards/<concept>
 
 <question>
 ?
 <answer>
 ```
+
 Separate cards with a blank line. Use `<question>::<answer>` for one-line cards.
 
 ### Reference Sheet
+
 Quick-lookup format:
+
 - Formulas, syntax, or rules
 - Decision trees or when-to-use guides
 - Side-by-side comparisons

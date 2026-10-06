@@ -26,7 +26,7 @@ No lint and no unit tests. `test-integration.sh` is the only automated check.
 
 Each skill folder is a **self-contained workspace**: its own `CLAUDE.md` plus project-scoped skills under `.claude/skills/`. Commands only exist when Claude Code is opened inside that folder.
 
-```
+```text
 plugins/<plugin>/
 ├── .claude-plugin/plugin.json          ← name, description; version is written by build.py
 └── skills/<workspace>/

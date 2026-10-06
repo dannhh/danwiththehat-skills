@@ -34,6 +34,7 @@ After clarifying, output a **1-paragraph analysis plan** (phases + key questions
 ## Phase 1 — Overall Picture
 
 Top-level summary query:
+
 - Primary metric (absolute value + rate)
 - Volume (impressions / users / events) — establish scale
 - Comparison: same period last week/month, or vs baseline
@@ -46,6 +47,7 @@ Top-level summary query:
 ## Phase 2 — Trend Over Time
 
 Query the metric daily (or weekly if low volume). Look for:
+
 - **Direction**: flat / rising / declining / volatile
 - **Change points**: annotate spikes/drops with known events (campaigns, launches, incidents)
 - **Seasonality**: weekday vs weekend, monthly rhythms
@@ -67,6 +69,7 @@ Break down by available user dimensions. Common ones:
 | Acquisition channel | Organic vs paid vs push vs email |
 
 For each dimension:
+
 - Metric per segment + volume
 - Flag segments that **significantly** over/underperform (>2pp or >20% relative)
 - Suppress segments with <500 impressions or <100 users (too noisy)
@@ -88,6 +91,7 @@ Break down by product/surface dimensions. Common ones:
 | A/B variant (if applicable) | Which variant drives the metric? |
 
 For each dimension:
+
 - Metric per segment + volume
 - Identify where drop-offs or outperformance **concentrate** — that's where to invest
 

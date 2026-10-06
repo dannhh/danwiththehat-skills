@@ -15,6 +15,7 @@ Spaced repetition quiz: load history → select questions → grade → save sco
 ## Phase 0 — Load History
 
 Find the concept's note via `<VAULT>/index.md` and read its `last_quizzed` / `quiz_avg` frontmatter and `## Quiz History` section to determine:
+
 - What has been quizzed before
 - Which areas scored low (< 70%) — prioritize these
 - When last quizzed — flag if overdue (> 7 days)
@@ -50,6 +51,7 @@ After each response, score it:
 | 1 | Incorrect — fundamental misunderstanding |
 
 Give brief feedback after each answer:
+
 - What was right
 - What was missing or wrong
 - The correct answer if score ≤ 2
@@ -71,6 +73,7 @@ In the concept's note:
 ```
 
 Then propagate:
+
 - today's daily note `<VAULT>/wiki/daily/<YYYY-MM-DD>.md`, under `## Learned`: `- HH:MM /quiz [[<Concept Title>]] — X.X/5, weak: <topics>`
 - `<VAULT>/log.md`: `## [<YYYY-MM-DD>] quiz | <Concept Title> X.X/5`
 
