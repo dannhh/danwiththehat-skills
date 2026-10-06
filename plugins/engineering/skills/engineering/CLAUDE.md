@@ -10,6 +10,7 @@ A set of software engineering skills for writing well-tested, well-architected c
 | `improve-codebase-architecture` | `/improve-codebase-architecture` | Surface architectural friction and propose deepening opportunities |
 | `python-code-standard` | `/python-code-standard` | One Python standard (ruff, Google docstrings, types, fail-loudly, invariant tests, provenance) for setup, writing and audits; tuned for ML/research code |
 | `markdown-style` | `/markdown-style` | Plain, consistent Markdown for READMEs, docs and notes: bullets over prose, human sentences, one H1, fenced code, descriptive links; markdownlint config; audits that never lose information |
+| `design-patterns` | `/design-patterns` | Smallest structure that fits, in its Python form: registry, strategy-as-function, composition, DI, context object, functional core; ML patterns and anti-patterns; design and review modes |
 
 ## Progressive Disclosure
 

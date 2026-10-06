@@ -56,6 +56,7 @@ A SQL analyst that learns the warehouse as it goes. Big vague question in, queri
 - **`/improve-codebase-architecture`**: finds the shallow, tangled bits and suggests how to make modules deeper and easier to test
 - **`/python-code-standard`**: the one Python standard I use everywhere: formatter decides formatting, fail loudly, shapes are contracts, test invariants, every result traceable to a commit. Sets up new projects and audits old ones without changing behaviour
 - **`/markdown-style`**: the same idea for docs and notes: bullets over prose, sentences a newcomer understands, one title, code fenced with its language, links that say where they go. Tidies a pile of notes without losing a single fact
+- **`/design-patterns`**: before adding a class, a factory or a fifth `elif`, it asks what actually changes and picks the smallest thing that handles it, in plain Python. Also knows the ML ones: one engine for many models, experiments as configs, a baseline before any model
 
 ---
 
