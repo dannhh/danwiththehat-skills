@@ -61,6 +61,16 @@ Pattern:
    smoke; md5 must match. For a deterministic model, regenerate one real output and
    compare it with the scored copy.
 3. Back up any file the check will overwrite.
+4. Cover every branch the refactor touched, not only the default smoke path: one tiny
+   run per training mode (e.g. teacher forcing, rollout, sequence, windowed), old code
+   in a `git worktree` at the previous commit, new code in place, then compare the
+   saved weights tensor by tensor.
+5. GPU backends (MPS, often CUDA) are not bitwise deterministic run to run. First run
+   the old code twice: if it differs from itself, rerun both sides on CPU, which is
+   deterministic, and require bitwise equality there. On the GPU, accept differences
+   no larger than the old-vs-old difference.
+6. `torch.equal` is False whenever a tensor holds NaN, and `-inf - -inf` is NaN: compare
+   buffers such as attention masks with `torch.equal`, not by subtraction.
 
 ## Validation honesty
 - When offline validation cannot see the deployment shift, say so and track the
