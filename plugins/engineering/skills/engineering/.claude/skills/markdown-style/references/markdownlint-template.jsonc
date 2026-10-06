@@ -14,7 +14,8 @@
     "MD046": { "style": "fenced" },                  // no indented code blocks
     "MD049": { "style": "asterisk" },                // *emphasis*
     "MD050": { "style": "asterisk" },                // **strong**
-    "MD059": true                                    // descriptive link text, not "here"
+    "MD059": true,                                   // descriptive link text, not "here"
+    "MD060": false                                   // table pipe alignment: cosmetic, tools disagree
   },
   "ignores": ["node_modules/**", ".venv/**", "**/.obsidian/**"]
 }
