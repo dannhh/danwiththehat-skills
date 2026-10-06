@@ -8,6 +8,7 @@ A set of software engineering skills for writing well-tested, well-architected c
 |-------|---------|-------------|
 | `test-driven-development` | `/test-driven-development` | Test-driven development — vertical slices, behavior-first tests, RED→GREEN→REFACTOR |
 | `improve-codebase-architecture` | `/improve-codebase-architecture` | Surface architectural friction and propose deepening opportunities |
+| `python-code-standard` | `/python-code-standard` | One Python standard (ruff, Google docstrings, types, fail-loudly, invariant tests, provenance) for setup, writing and audits; tuned for ML/research code |
 
 ## Progressive Disclosure
 

@@ -54,6 +54,7 @@ A SQL analyst that learns the warehouse as it goes. Big vague question in, queri
 
 - **`/test-driven-development`**: one failing test, make it pass, clean up, repeat. Small vertical slices, no big-bang PRs
 - **`/improve-codebase-architecture`**: finds the shallow, tangled bits and suggests how to make modules deeper and easier to test
+- **`/python-code-standard`**: the one Python standard I use everywhere: formatter decides formatting, fail loudly, shapes are contracts, test invariants, every result traceable to a commit. Sets up new projects and audits old ones without changing behaviour
 
 ---
 

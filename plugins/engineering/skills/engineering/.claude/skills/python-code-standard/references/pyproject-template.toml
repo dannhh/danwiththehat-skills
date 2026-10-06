@@ -1,0 +1,30 @@
+# Paste into pyproject.toml. Adjust target-version, excludes and the src/scripts split.
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "RUF", "D", "ANN"]
+ignore = [
+    "E501",          # code lines are owned by the formatter; long log f-strings may stay
+    "N803", "N806",  # upper-case array names (X, D, P) are the ML convention (if N is on)
+    "D105", "D107",  # magic methods and __init__ are documented on the class
+    "ANN401",        # Any is allowed where a value is truly untyped
+]
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 88  # W505: docstrings and comments
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/**" = ["D", "ANN"]  # scripts: module docstring and --help; no type hints
+"tests/**" = ["D", "ANN"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+# dev dependencies: uv add --dev ruff pytest
