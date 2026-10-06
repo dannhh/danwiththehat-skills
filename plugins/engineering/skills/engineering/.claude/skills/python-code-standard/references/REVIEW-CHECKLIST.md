@@ -1,6 +1,7 @@
 # Audit and review checklist
 
 ## Measure
+
 ```bash
 # lint stats with the template rules (copy the template into pyproject first, or pass --select)
 uvx ruff check --select E,W,F,I,B,UP,RUF,D,ANN --statistics src scripts
@@ -24,18 +25,20 @@ ls tests 2>/dev/null || echo "no tests"
 ```
 
 ## Review questions
+
 - Does every mode/flag have an explicit `raise` for unknown values?
 - Are shapes stated in docstrings and checked at entry points?
 - Does any function mutate an argument without saying so?
-- Are there literals that encode domain sizes? Do two equal literals mean different
-  things?
+- Are there literals that encode domain sizes? Do two equal literals mean different things?
 - Are research numbers or dates in code comments instead of notes?
 - Is every public function typed and documented (summary line ≤ 88 columns)?
 - Can each output file be traced to config + commit?
 - Is there a test for each transform the results depend on?
 
 ## AST equivalence (docstrings stripped)
+
 Copy `src/` and `scripts/` to a scratch folder before the change, then:
+
 ```python
 import ast, pathlib
 
@@ -56,5 +59,5 @@ for p in pathlib.Path("src").rglob("*.py"):
     if strip(old) != strip(p.read_text()):
         print("code changed:", p)
 ```
-Expected differences (import order, intentional fixes) must be listed in the commit
-message; anything else is a regression until explained.
+
+Expected differences (import order, intentional fixes) must be listed in the commit message; anything else is a regression until explained.
