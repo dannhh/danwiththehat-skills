@@ -1,12 +1,13 @@
 # Worklog
 
-A work journal that lives in your Obsidian vault next to your learning notes, so you can read it on any device.
+A work journal and a trading journal that live in your Obsidian vault next to your learning notes, so you can read them on any device.
 
 ## Skills
 
 | Skill | Trigger | Description |
 |-------|---------|-------------|
 | `log` | `/log` | Add a work entry, or recap a day / week / standup from past entries |
+| `trade` | `/trade` | Plan, record, or skip a trade; review results by setup and week |
 
 ## Vault (resolve FIRST)
 
@@ -24,6 +25,7 @@ Then read `<VAULT>/_CLAUDE.md`. **It is authoritative** for folders, naming, fro
 |---|---|
 | Daily note | `<VAULT>/wiki/daily/<YYYY-MM-DD>.md`, section `## Work log` (created from `<VAULT>/templates/daily.md`) |
 | Projects | `<VAULT>/wiki/projects/<Project>.md` |
+| Trades | `<VAULT>/wiki/trades/<YYYY-MM-DD> - <SYMBOL> <Setup> <Direction>.md` (from `<VAULT>/templates/trade.md`), one line under `## Trading` in the daily note, hub `[[Trading]]` |
 | Longer work sessions | `<VAULT>/wiki/logs/<YYYY-MM-DD> - <Description>.md` |
 | Saved recaps | `<VAULT>/wiki/reviews/<YYYY>-W<ww>.md` |
 | Operation log | `<VAULT>/log.md` |

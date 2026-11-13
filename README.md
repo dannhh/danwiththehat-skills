@@ -42,6 +42,8 @@ Because "what did you do yesterday?" should not require archaeology.
 - `/log standup` gives me yesterday / today / blockers, ready to paste
 - `/log recap week` shows what got done per project and which todos are going stale
 - Can draft entries from today's `git log` if I forgot to log as I went (asks before writing)
+- `/trade XAUUSD long FVG, entry 2731.5, SL 2727` starts a trade note; `/trade closed +1.8R` finishes it with the review
+- `/trade review` shows win rate and average R per setup, and whether I made more following the plan or breaking it. Skipped setups count too
 
 ## 03 · The analyst hat `data-analytics`
 
@@ -97,7 +99,7 @@ The student and logbook hats write into one Obsidian vault, laid out as an LLM w
 ```mermaid
 flowchart LR
     A["/study · /note · /quiz"] --> V[("~/notes")]
-    B["/log"] --> V
+    B["/log · /trade"] --> V
     V --> S{{Obsidian Sync}}
     S --> M["phone"]
     S --> L["laptop"]
@@ -111,7 +113,8 @@ flowchart LR
 ├── log.md             ← append-only history of what Claude did
 ├── raw/               ← sources I clip; never edited
 └── wiki/
-    ├── daily/         ← one note a day: work log, learned, decisions, tasks
+    ├── daily/         ← one note a day: work log, trades, learned, decisions, tasks
+    ├── trades/        ← one note per trade: plan, execution, review
     ├── concepts/      ← things I learned, with quiz history
     ├── entities/      ← tools, libraries, people
     ├── projects/      ← context and key decisions

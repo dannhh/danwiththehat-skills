@@ -9,7 +9,7 @@ Guidance for Claude Code when working in this repository.
 | Plugin | Workspace | Commands |
 |---|---|---|
 | `learning` | `concept-learner` | `/study` `/note` `/quiz` `/materials` |
-| `productivity` | `worklog` | `/log` |
+| `productivity` | `worklog` | `/log` `/trade` |
 | `data-analytics` | `da-sql` | `/deep-analyze` + `da-sql-analyst` agent |
 | `engineering` | `engineering` | `/test-driven-development` `/improve-codebase-architecture` `/python-code-standard` `/markdown-style` `/design-patterns` |
 

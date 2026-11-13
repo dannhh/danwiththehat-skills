@@ -1,6 +1,6 @@
 {
   "name": "productivity",
-  "version": "2026.1007.0231",
-  "description": "Daily work logging into an Obsidian vault, with standup and weekly recaps",
+  "version": "2026.1007.0250",
+  "description": "Daily work logging and a trading journal in an Obsidian vault, with standups, weekly recaps, and per-setup trade stats",
   "mcpServers": {}
 }
